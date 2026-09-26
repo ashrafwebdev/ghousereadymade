@@ -5,7 +5,7 @@ window.I18N = {
     "nav.orders": "My Orders", "nav.about": "Contact", "nav.search": "Search jackets, pants, burqa…",
     "lang.switch": "தமிழ்",
 
-    "ticker.1": "Everything just ₹100",
+    "ticker.1": "Offer: everything just ₹{price}",
     "ticker.2": "Flat ₹50 shipping per order — all over Tamil Nadu",
     "ticker.3": "Delivered by ST Courier",
     "ticker.4": "Order in 1 minute on WhatsApp",
@@ -13,11 +13,11 @@ window.I18N = {
 
     "hero.kicker": "Lalpet's own readymade store · Now online",
     "hero.title1": "Everything",
-    "hero.title2": "just ₹100.",
+    "hero.title2": "just ₹{price}!",
     "hero.sub": "Jackets, pants, burqa wear, kids wear & more — delivered to your doorstep anywhere in Tamil Nadu by ST Courier for a flat ₹50 per order.",
-    "hero.cta": "Shop the ₹100 store",
+    "hero.cta": "Shop the ₹{price} offer",
     "hero.cta2": "Order on WhatsApp",
-    "hero.stamp1": "ALL ITEMS", "hero.stamp2": "ONLY",
+    "hero.stamp1": "OFFER PRICE", "hero.stamp2": "ALL ITEMS",
     "hero.trust1": "15+ products", "hero.trust2": "₹50 flat shipping", "hero.trust3": "Order via WhatsApp",
 
     "how.title": "Order in 3 easy steps",
@@ -26,7 +26,7 @@ window.I18N = {
     "how.3t": "Pay & receive", "how.3d": "Pay by UPI after we confirm. ST Courier delivers to you.",
 
     "cats.title": "Shop by category",
-    "featured.title": "The ₹100 collection",
+    "featured.title": "The ₹{price} offer collection",
     "featured.all": "View all",
 
     "ship.title": "One order. One shipping fee.",
@@ -40,11 +40,11 @@ window.I18N = {
     "yt.sub_btn": "Subscribe",
     "yt.p1": "New arrivals every week", "yt.p2": "Special offer prices first", "yt.p3": "See colours & fabric live",
 
-    "poster.title": "Our shop price list",
-    "poster.sub": "The same prices you see at our Lalpet shop — now online.",
+    "poster.title": "Our offer price list",
+    "poster.sub": "The same offer prices you see at our Lalpet shop — now online.",
 
     "why.title": "Why customers love us",
-    "why.1t": "One price, zero confusion", "why.1d": "Every item is ₹100. No hidden charges.",
+    "why.1t": "One offer price", "why.1d": "During the offer every item is ₹{price}. No hidden charges.",
     "why.2t": "All over Tamil Nadu", "why.2d": "Wherever ST Courier reaches, we deliver.",
     "why.3t": "Real shop, real people", "why.3d": "Visit us on Chidambaram Main Road, Lalpet.",
     "why.4t": "Talk to us directly", "why.4d": "Questions? Chat with the owner on WhatsApp.",
@@ -77,7 +77,7 @@ window.I18N = {
 
     "cart.title": "Your cart",
     "cart.empty": "Your cart is empty",
-    "cart.emptySub": "Everything is ₹100 — start adding!",
+    "cart.emptySub": "Offer: everything ₹{price} — start adding!",
     "cart.subtotal": "Subtotal", "cart.shipping": "Shipping", "cart.total": "Total",
     "cart.checkout": "Proceed to order", "cart.continue": "Continue shopping",
     "cart.remove": "Remove", "cart.view": "View cart",
@@ -162,7 +162,7 @@ window.I18N = {
     "faq.q6": "Can I buy at the shop?",
     "faq.a6": "Of course! Visit us at Chidambaram Main Road, Lalpet (near Govt. Higher Secondary School).",
 
-    "footer.tag": "Quality readymades at one simple price — ₹100. Shipping across Tamil Nadu via ST Courier.",
+    "footer.tag": "Quality readymades at honest prices. Shipping across Tamil Nadu via ST Courier.",
     "footer.links": "Quick links", "footer.contact": "Contact", "footer.follow": "Follow us",
     "footer.rights": "All rights reserved.",
 
@@ -183,6 +183,25 @@ window.I18N = {
     "msg.footer": "🌐 This order is placed through *{site}*",
     "msg.confirm": "Please confirm availability. Thank you!",
 
+    "ticker.1off": "Quality readymades at honest prices",
+    "hero.off1": "Quality readymades,",
+    "hero.off2": "honest prices.",
+    "hero.ctaOff": "Shop now",
+    "hero.stampOff1": "SHIPPING",
+    "hero.stampOff2": "PER ORDER",
+    "featured.titleOff": "Our collection",
+    "why.1tOff": "Honest prices",
+    "why.1dOff": "Clear price on every item. No hidden charges.",
+    "cart.emptySubOff": "Start adding your favourites!",
+    "offer.badge": "OFFER",
+    "offer.bar": "🎉 Offer price: everything ₹{price}!",
+    "offer.ends": "Offer ends {date}",
+    "offer.endsToday": "Offer ends today!",
+    "offer.left": "{n} days left",
+    "p.regular": "Regular price",
+    "p.save": "You save ₹{v}",
+    "p.askPrice": "Ask price",
+    "p.askPriceWa": "Ask price on WhatsApp",
     "free": "Free"
   },
 
@@ -191,7 +210,7 @@ window.I18N = {
     "nav.orders": "என் ஆர்டர்கள்", "nav.about": "தொடர்பு", "nav.search": "ஜாக்கெட், பேன்ட், புர்கா தேடுங்கள்…",
     "lang.switch": "English",
 
-    "ticker.1": "எல்லாமே ₹100 மட்டுமே",
+    "ticker.1": "ஆஃபர்: எல்லாமே ₹{price} மட்டுமே",
     "ticker.2": "ஒரு ஆர்டருக்கு ₹50 மட்டுமே ஷிப்பிங் — தமிழ்நாடு முழுவதும்",
     "ticker.3": "ST கொரியர் மூலம் டெலிவரி",
     "ticker.4": "WhatsApp-ல் 1 நிமிடத்தில் ஆர்டர்",
@@ -199,11 +218,11 @@ window.I18N = {
 
     "hero.kicker": "லால்பேட்டையின் சொந்த ரெடிமேட் கடை · இப்போது ஆன்லைனில்",
     "hero.title1": "எல்லாமே",
-    "hero.title2": "₹100 தான்!",
+    "hero.title2": "₹{price} தான்!",
     "hero.sub": "ஜாக்கெட், பேன்ட், புர்கா, குழந்தைகள் உடை மற்றும் பல — தமிழ்நாட்டில் எங்கிருந்தாலும் ST கொரியர் மூலம் உங்கள் வீட்டுக்கே. ஒரு ஆர்டருக்கு ஷிப்பிங் ₹50 மட்டுமே.",
-    "hero.cta": "₹100 கடைக்குள் செல்லுங்கள்",
+    "hero.cta": "₹{price} ஆஃபரில் வாங்குங்கள்",
     "hero.cta2": "WhatsApp-ல் ஆர்டர்",
-    "hero.stamp1": "அனைத்தும்", "hero.stamp2": "மட்டுமே",
+    "hero.stamp1": "ஆஃபர் விலை", "hero.stamp2": "அனைத்தும்",
     "hero.trust1": "15+ பொருட்கள்", "hero.trust2": "₹50 ஷிப்பிங்", "hero.trust3": "WhatsApp ஆர்டர்",
 
     "how.title": "3 எளிய படிகளில் ஆர்டர்",
@@ -212,7 +231,7 @@ window.I18N = {
     "how.3t": "பணம் செலுத்தி பெறுங்கள்", "how.3d": "உறுதி செய்தபின் UPI-ல் செலுத்துங்கள். ST கொரியர் உங்களிடம் சேர்க்கும்.",
 
     "cats.title": "வகை வாரியாக",
-    "featured.title": "₹100 கலெக்ஷன்",
+    "featured.title": "₹{price} ஆஃபர் கலெக்ஷன்",
     "featured.all": "அனைத்தும் பார்க்க",
 
     "ship.title": "ஒரு ஆர்டர். ஒரே ஷிப்பிங் கட்டணம்.",
@@ -226,11 +245,11 @@ window.I18N = {
     "yt.sub_btn": "Subscribe",
     "yt.p1": "ஒவ்வொரு வாரமும் புதிய வரவுகள்", "yt.p2": "சிறப்பு ஆஃபர் விலைகள் முதலில்", "yt.p3": "நிறம், துணியை நேரடியாகப் பாருங்கள்",
 
-    "poster.title": "எங்கள் கடை விலைப்பட்டியல்",
-    "poster.sub": "லால்பேட்டை கடையில் உள்ள அதே விலை — இப்போது ஆன்லைனில்.",
+    "poster.title": "எங்கள் ஆஃபர் விலைப்பட்டியல்",
+    "poster.sub": "லால்பேட்டை கடையில் உள்ள அதே ஆஃபர் விலை — இப்போது ஆன்லைனில்.",
 
     "why.title": "வாடிக்கையாளர்கள் ஏன் எங்களை விரும்புகிறார்கள்",
-    "why.1t": "ஒரே விலை, குழப்பமில்லை", "why.1d": "ஒவ்வொரு பொருளும் ₹100. மறைமுக கட்டணம் இல்லை.",
+    "why.1t": "ஒரே ஆஃபர் விலை", "why.1d": "ஆஃபர் காலத்தில் ஒவ்வொரு பொருளும் ₹{price}. மறைமுக கட்டணம் இல்லை.",
     "why.2t": "தமிழ்நாடு முழுவதும்", "why.2d": "ST கொரியர் செல்லும் இடமெல்லாம் டெலிவரி.",
     "why.3t": "உண்மையான கடை", "why.3d": "சிதம்பரம் மெயின் ரோடு, லால்பேட்டையில் நேரில் வாருங்கள்.",
     "why.4t": "நேரடியாகப் பேசுங்கள்", "why.4d": "சந்தேகமா? WhatsApp-ல் உரிமையாளருடன் பேசுங்கள்.",
@@ -263,7 +282,7 @@ window.I18N = {
 
     "cart.title": "உங்கள் கார்ட்",
     "cart.empty": "உங்கள் கார்ட் காலியாக உள்ளது",
-    "cart.emptySub": "எல்லாமே ₹100 — சேர்க்கத் தொடங்குங்கள்!",
+    "cart.emptySub": "ஆஃபர்: எல்லாமே ₹{price} — சேர்க்கத் தொடங்குங்கள்!",
     "cart.subtotal": "மொத்தம்", "cart.shipping": "ஷிப்பிங்", "cart.total": "கூட்டுத்தொகை",
     "cart.checkout": "ஆர்டர் செய்ய தொடரவும்", "cart.continue": "மேலும் வாங்க",
     "cart.remove": "நீக்கு", "cart.view": "கார்ட் பார்க்க",
@@ -348,7 +367,7 @@ window.I18N = {
     "faq.q6": "கடையில் நேரில் வாங்கலாமா?",
     "faq.a6": "நிச்சயமாக! சிதம்பரம் மெயின் ரோடு, லால்பேட்டை (அரசு மேல்நிலைப் பள்ளி அருகில்) வாருங்கள்.",
 
-    "footer.tag": "தரமான ரெடிமேட் உடைகள் ஒரே எளிய விலையில் — ₹100. ST கொரியர் மூலம் தமிழ்நாடு முழுவதும் ஷிப்பிங்.",
+    "footer.tag": "தரமான ரெடிமேட் உடைகள் நியாயமான விலையில். ST கொரியர் மூலம் தமிழ்நாடு முழுவதும் ஷிப்பிங்.",
     "footer.links": "இணைப்புகள்", "footer.contact": "தொடர்பு", "footer.follow": "பின்தொடருங்கள்",
     "footer.rights": "அனைத்து உரிமைகளும் பாதுகாக்கப்பட்டவை.",
 
@@ -369,6 +388,25 @@ window.I18N = {
     "msg.footer": "🌐 இந்த ஆர்டர் *{site}* இணையதளம் மூலம் செய்யப்பட்டது (This order is placed through {site})",
     "msg.confirm": "ஸ்டாக் உறுதி செய்யவும். நன்றி!",
 
+    "ticker.1off": "தரமான ரெடிமேட்ஸ் நியாயமான விலையில்",
+    "hero.off1": "தரமான ரெடிமேட்ஸ்,",
+    "hero.off2": "நியாயமான விலையில்!",
+    "hero.ctaOff": "இப்போதே வாங்குங்கள்",
+    "hero.stampOff1": "ஷிப்பிங்",
+    "hero.stampOff2": "ஒரு ஆர்டருக்கு",
+    "featured.titleOff": "எங்கள் கலெக்ஷன்",
+    "why.1tOff": "நியாயமான விலை",
+    "why.1dOff": "ஒவ்வொரு பொருளுக்கும் தெளிவான விலை. மறைமுக கட்டணம் இல்லை.",
+    "cart.emptySubOff": "உங்களுக்குப் பிடித்தவற்றைச் சேர்க்கத் தொடங்குங்கள்!",
+    "offer.badge": "ஆஃபர்",
+    "offer.bar": "🎉 ஆஃபர் விலை: எல்லாமே ₹{price}!",
+    "offer.ends": "ஆஃபர் {date} வரை மட்டுமே",
+    "offer.endsToday": "ஆஃபர் இன்று மட்டுமே!",
+    "offer.left": "இன்னும் {n} நாட்கள்",
+    "p.regular": "வழக்கமான விலை",
+    "p.save": "₹{v} சேமிப்பு",
+    "p.askPrice": "விலை கேளுங்கள்",
+    "p.askPriceWa": "WhatsApp-ல் விலை கேளுங்கள்",
     "free": "இலவசம்"
   }
 };

@@ -1,7 +1,7 @@
 # Ghouse Readymades · கவுஸ் ரெடிமேட்ஸ்
 
 The online shop for **Ghouse Readymades**, Chidambaram Main Road, Lalpet – 608 303.
-Every item costs ₹100. Shipping is a flat ₹50 per order anywhere in Tamil Nadu, by ST Courier.
+Each product has a regular price, and during an offer period every product sells at the offer price (₹100). Shipping is a flat ₹50 per order anywhere in Tamil Nadu, by ST Courier.
 Customers order on WhatsApp.
 
 The site is plain HTML, CSS and JavaScript. It has no server and no build step, so it runs directly on **GitHub Pages**.
@@ -45,7 +45,17 @@ Until you add a photo, the site shows a drawn picture of the product.
 
 **Featuring YouTube videos.** In `js/config.js`, set `channelUrl` to your channel link. Then add each video's ID to `videos`. The ID is the part after `v=` in the video link.
 
-**Showing an offer at the top of the site.** In `js/config.js`, fill in the `offerBanner` text in English and Tamil. Leave it empty to hide the banner.
+**Regular prices and the ₹100 offer.**
+- In `js/products.js`, set each product's `regularPrice` (for example `regularPrice: 250`). During the offer, the site shows ~~₹250~~ **₹100**, an "OFFER −60%" badge and "You save ₹150".
+- In `js/config.js`, the `offer` block controls the offer:
+  - `active: true` runs the offer, and `active: false` switches every product back to its regular price.
+  - `price` is the offer price (₹100).
+  - `endsOn: "2026-10-15"` shows "Offer ends 15 Oct · 4 days left" and switches the offer off by itself after that day. Leave it `""` to run until you set `active: false`.
+- To keep one product out of the offer, set `onOffer: false` for it.
+- A product without a `regularPrice` shows "Ask price on WhatsApp" once the offer is off.
+- While the offer is off, the ₹100 price-list poster, the ₹100 badges and the offer bar are hidden automatically.
+
+**Showing a custom message at the top of the site.** In `js/config.js`, fill in the `offerBanner` text in English and Tamil. Leave it empty to show the automatic offer message (or nothing when no offer is running).
 
 **Marking a product as sold out.** Set `inStock: false` for that product in `js/products.js`.
 

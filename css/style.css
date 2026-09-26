@@ -182,6 +182,10 @@ main { max-width: var(--wrap); margin: 0 auto; padding: 0 16px 40px; min-height:
 .card__media svg, .card__media img { width: 100%; height: 100%; object-fit: cover; transition: transform .4s; }
 .card:hover .card__media svg, .card:hover .card__media img { transform: scale(1.05); }
 .card__tag { position: absolute; left: 10px; top: 10px; background: rgba(255, 255, 255, .92); color: hsl(var(--h), 55%, 30%); font-weight: 700; font-size: .72rem; padding: 3px 10px; border-radius: 999px; }
+.card__offer { position: absolute; left: 10px; bottom: 10px; background: var(--rose); color: #fff; font-weight: 800; font-size: .72rem; letter-spacing: .04em; padding: 3px 10px; border-radius: 999px; box-shadow: 0 4px 10px -4px rgba(215, 25, 74, .8); }
+.price--ask { font-size: .95rem; color: var(--wa-d); }
+.btn-add--wa { background: var(--wa); color: #06351f; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; width: 100%; }
+.btn-add--wa:hover { background: #1fc15b; }
 .card__out { position: absolute; inset: 0; display: grid; place-items: center; background: rgba(255, 255, 255, .7); font-weight: 800; color: var(--muted); }
 .card.is-out .card__media svg { filter: grayscale(1); }
 .card__wish { position: absolute; right: 8px; top: 8px; width: 38px; height: 38px; border-radius: 50%; border: 0; background: rgba(255, 255, 255, .92); display: grid; place-items: center; box-shadow: 0 2px 8px rgba(0, 0, 0, .08); }
@@ -299,6 +303,11 @@ main { max-width: var(--wrap); margin: 0 auto; padding: 0 16px 40px; min-height:
 .pdp__price b { font-family: var(--head); font-size: 2.6rem; color: var(--rose); line-height: 1; }
 .pdp__price s { color: var(--muted); font-size: 1.2rem; }
 .pdp__price .stock-pill { margin: 0; }
+.save { margin: -4px 0 12px; color: var(--muted); }
+.save b { color: #15803d; }
+.offer-ends { display: inline-block; background: var(--gold); color: var(--ink); font-weight: 800; padding: 4px 14px; border-radius: 999px; margin: -4px 0 12px; }
+.stamp--ship { background: var(--plum); }
+.poster--noimg { grid-template-columns: 1fr; }
 .pdp__desc { font-size: 1.04rem; color: #4e3848; }
 .opt { margin: 16px 0; }
 .opt__label { font-weight: 700; margin-bottom: 8px; }
@@ -521,6 +530,9 @@ legend + * { clear: both; }
   .card__name { font-size: .98rem; }
   .price { font-size: 1.2rem; }
   .btn-add { padding: 7px 11px; font-size: .84rem; }
+  .card__row { flex-wrap: wrap; row-gap: 8px; }
+  .card__row .btn-add { width: 100%; justify-content: center; }
+  .price s { font-size: .72em; }
   .ship, .yt, .poster { grid-template-columns: 1fr; padding: 24px 18px; }
   .poster { padding: 0; }
   .ship__truck { height: 120px; }

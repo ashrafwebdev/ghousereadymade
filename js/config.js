@@ -24,6 +24,18 @@ window.STORE = {
 
   currency: "₹",
 
+  // OFFER PRICE — while the offer is on, every product (with onOffer: true)
+  // sells at this price and the regular price is shown struck out.
+  //  - active:  true = offer running, false = regular prices everywhere
+  //  - endsOn:  last day of the offer as "YYYY-MM-DD" (e.g. "2026-10-15").
+  //             The offer switches off by itself after this day.
+  //             Leave "" to run until you set active: false.
+  offer: {
+    active: true,
+    price: 100,
+    endsOn: ""
+  },
+
   shipping: {
     fee: 50,                 // flat per order, anywhere in Tamil Nadu
     courier: "ST Courier",

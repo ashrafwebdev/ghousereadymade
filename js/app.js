@@ -6,6 +6,20 @@
   var byId = {};
   PRODUCTS.forEach(function (p) { byId[p.id] = p; });
 
+  /* ---------- pricing: offer price vs regular price ---------- */
+  function offerEnd() { return S.offer && S.offer.endsOn ? new Date(S.offer.endsOn + "T23:59:59") : null; }
+  function offerOn() {
+    if (!S.offer || !S.offer.active) return false;
+    var end = offerEnd();
+    return !end || isNaN(end) || Date.now() <= end.getTime();
+  }
+  function priceOf(p) {
+    if (offerOn() && p.onOffer !== false) return S.offer.price;
+    return p.regularPrice > 0 ? p.regularPrice : null;
+  }
+  function wasOf(p) { var pr = priceOf(p); return pr != null && p.regularPrice > pr ? p.regularPrice : null; }
+  function buyable(p) { return p.inStock && priceOf(p) != null; }
+
   /* ---------- helpers ---------- */
   var $ = function (s, r) { return (r || document).querySelector(s); };
   var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
@@ -28,17 +42,33 @@
     customer: db.get("customer", null),
     sort: "featured"
   };
-  state.cart = state.cart.filter(function (i) { return byId[i.id]; });
+  state.cart = state.cart.filter(function (i) { return byId[i.id] && buyable(byId[i.id]); });
 
   function t(k, vars, lang) {
     var L = I18N[lang || state.lang] || I18N.en;
     var s = L[k] != null ? L[k] : (I18N.en[k] != null ? I18N.en[k] : k);
+    if (S.offer) s = s.split("{price}").join(S.offer.price);
     if (vars) Object.keys(vars).forEach(function (x) { s = s.split("{" + x + "}").join(vars[x]); });
     return s;
   }
   function loc(obj, lang) { return obj ? (obj[lang || state.lang] || obj.en || "") : ""; }
   function pname(p, lang) { return p[lang || state.lang] || p.en; }
   function altName(p) { return state.lang === "ta" ? p.en : p.ta; }
+  function offerKey(k) { return offerOn() ? k : k + "Off"; }
+  function priceHtml(p, big) {
+    var pr = priceOf(p), was = wasOf(p);
+    if (pr == null) return '<span class="price price--ask">' + t("p.askPrice") + '</span>';
+    return big ? (was ? '<s>' + money(was) + '</s>' : "") + '<b>' + money(pr) + '</b>'
+               : '<span class="price">' + (was ? '<s>' + money(was) + '</s>' : "") + money(pr) + '</span>';
+  }
+  function offerEndsText() {
+    var end = offerEnd(); if (!end || isNaN(end)) return "";
+    var today = new Date(); today.setHours(0, 0, 0, 0);
+    var days = Math.round((new Date(end.getFullYear(), end.getMonth(), end.getDate()) - today) / 864e5);
+    if (days <= 0) return t("offer.endsToday");
+    var d = end.toLocaleDateString(state.lang === "ta" ? "ta-IN" : "en-IN", { day: "numeric", month: "short" });
+    return t("offer.ends", { date: d }) + (days <= 7 ? " · " + t("offer.left", { n: days }) : "");
+  }
   function money(n) { return S.currency + Number(n).toLocaleString("en-IN"); }
   function optLabel(k, lang) { return loc(window.OPTION_LABELS[k] || { en: k }, lang); }
   function optVal(v, lang) { return (lang || state.lang) === "ta" ? (window.OPTION_VALUES_TA[v] || v) : v; }
@@ -79,9 +109,9 @@
     saveCart();
   }
   function count() { return state.cart.reduce(function (a, l) { return a + l.qty; }, 0); }
-  function subtotal() { return state.cart.reduce(function (a, l) { return a + l.qty * byId[l.id].price; }, 0); }
+  function subtotal() { return state.cart.reduce(function (a, l) { return a + l.qty * (priceOf(byId[l.id]) || 0); }, 0); }
   function shippingFor(method) { return count() && method !== "pickup" ? S.shipping.fee : 0; }
-  function perItem(n) { var v = (n * 100 + S.shipping.fee) / n; return Math.round(v); }
+  function perItem(n, sub) { return Math.round((sub + S.shipping.fee) / n); }
   function bump() {
     ["#cartBtn", ".bnav__cart"].forEach(function (s) {
       var el = $(s); if (!el) return;
@@ -128,15 +158,17 @@
     return '<article class="card' + (p.inStock ? "" : " is-out") + '" style="--h:' + p.tint + '">' +
       '<a class="card__media" href="#/p/' + p.id + '" aria-label="' + esc(pname(p)) + '">' + media(p) +
       '<span class="card__tag">' + esc(loc(p.tag)) + '</span>' +
+      (offerOn() && p.onOffer !== false && p.inStock ? '<span class="card__offer">' + t("offer.badge") + (wasOf(p) ? ' −' + Math.round((1 - priceOf(p) / wasOf(p)) * 100) + '%' : "") + '</span>' : "") +
       (p.inStock ? "" : '<span class="card__out">' + t("card.soldout") + '</span>') + '</a>' +
       '<button class="card__wish" type="button" data-wish="' + p.id + '" aria-pressed="' + inWish + '" aria-label="' + t("p.wishAdd") + '">' + heart + '</button>' +
       '<div class="card__body">' +
       '<a class="card__name" href="#/p/' + p.id + '">' + esc(pname(p)) + '</a>' +
       '<div class="card__alt">' + esc(altName(p)) + '</div>' +
       '<div class="card__row">' +
-      '<span class="price">' + (p.mrp ? '<s>' + money(p.mrp) + '</s>' : "") + money(p.price) + '</span>' +
-      (p.inStock ? '<button class="btn-add" type="button" data-quick="' + p.id + '"><b>+</b> ' + t("card.add") + '</button>'
-                 : '<span class="muted small">' + t("card.soldout") + '</span>') +
+      (priceOf(p) == null && p.inStock ? "" : priceHtml(p)) +
+      (buyable(p) ? '<button class="btn-add" type="button" data-quick="' + p.id + '"><b>+</b> ' + t("card.add") + '</button>'
+        : p.inStock ? '<a class="btn-add btn-add--wa" target="_blank" rel="noopener" href="' + waLink(t("wa.enquiry", { name: pname(p) + " [" + p.code + "]", price: "?" }) + "\n" + pageUrl("#/p/" + p.id)) + '">' + t("p.askPrice") + '</a>'
+        : '<span class="muted small">' + t("card.soldout") + '</span>') +
       '</div></div></article>';
   }
   function grid(list) { return '<div class="grid">' + list.map(card).join("") + '</div>'; }
@@ -206,28 +238,30 @@
       '<section class="hero">' +
         '<div class="hero__text">' +
           '<p class="kicker">' + t("hero.kicker") + '</p>' +
-          '<h1><span>' + t("hero.title1") + '</span> <em>' + t("hero.title2") + '</em></h1>' +
+          '<h1><span>' + t(offerOn() ? "hero.title1" : "hero.off1") + '</span> <em>' + t(offerOn() ? "hero.title2" : "hero.off2") + '</em></h1>' +
+          (offerOn() && offerEndsText() ? '<p class="offer-ends">⏰ ' + offerEndsText() + '</p>' : "") +
           '<p class="hero__sub">' + t("hero.sub") + '</p>' +
-          '<div class="hero__cta"><a class="btn btn--primary btn--lg" href="#/shop">' + t("hero.cta") + ' →</a>' +
+          '<div class="hero__cta"><a class="btn btn--primary btn--lg" href="#/shop">' + t(offerKey("hero.cta")) + ' →</a>' +
           '<a class="btn btn--wa btn--lg" target="_blank" rel="noopener" href="' + waLink(t("wa.hello")) + '">' + waIcon + t("hero.cta2") + '</a></div>' +
           '<ul class="trust"><li>🛍️ ' + t("hero.trust1") + '</li><li>🚚 ' + t("hero.trust2") + '</li><li>💬 ' + t("hero.trust3") + '</li></ul>' +
         '</div>' +
         '<div class="hero__art">' +
-          '<div class="stamp"><span>' + t("hero.stamp1") + '</span><b>₹100</b><span>' + t("hero.stamp2") + '</span></div>' +
+          (offerOn() ? '<div class="stamp"><span>' + t("hero.stamp1") + '</span><b>' + money(S.offer.price) + '</b><span>' + t("hero.stamp2") + '</span></div>'
+                     : '<div class="stamp stamp--ship"><span>' + t("hero.stampOff1") + '</span><b>' + money(S.shipping.fee) + '</b><span>' + t("hero.stampOff2") + '</span></div>') +
           collage +
         '</div>' +
       '</section>' +
 
       '<section class="section"><div class="sec-head"><h2>' + t("cats.title") + '</h2></div><div class="cats">' + catCards + '</div></section>' +
 
-      '<section class="section"><div class="sec-head"><h2>' + t("featured.title") + '</h2><a class="link" href="#/shop">' + t("featured.all") + ' →</a></div>' +
-        '<p class="stock-pill">⏳ ' + t("stock.note") + '</p>' + grid(featured) +
+      '<section class="section"><div class="sec-head"><h2>' + t(offerKey("featured.title")) + '</h2><a class="link" href="#/shop">' + t("featured.all") + ' →</a></div>' +
+        (offerOn() ? '<p class="stock-pill">⏳ ' + t("stock.note") + '</p>' : "") + grid(featured) +
         '<div class="center"><a class="btn btn--ghost" href="#/shop">' + t("featured.all") + ' (' + PRODUCTS.length + ') →</a></div></section>' +
 
       '<section class="section ship">' +
         '<div class="ship__text"><h2>' + t("ship.title") + '</h2><p>' + t("ship.sub") + '</p>' +
-          '<label class="ship__range"><input type="range" min="1" max="10" value="3" id="shipRange" aria-label="items"></label>' +
-          '<div class="ship__out" id="shipOut"></div></div>' +
+          (offerOn() ? '<label class="ship__range"><input type="range" min="1" max="10" value="3" id="shipRange" aria-label="items"></label>' +
+          '<div class="ship__out" id="shipOut"></div>' : "") + '</div>' +
         '<div class="ship__truck" aria-hidden="true"><div class="truck"><span>ST COURIER</span></div><div class="road"></div></div>' +
       '</section>' +
 
@@ -237,10 +271,10 @@
 
       youtubeSection() +
 
-      '<section class="section poster"><div class="poster__text"><h2>' + t("poster.title") + '</h2><p>' + t("poster.sub") + '</p>' +
-        '<ul class="why">' + [1, 2, 3, 4].map(function (i) { return '<li><b>' + t("why." + i + "t") + '</b><span>' + t("why." + i + "d") + '</span></li>'; }).join("") + '</ul>' +
-        '<a class="btn btn--primary" href="#/shop">' + t("hero.cta") + ' →</a></div>' +
-        '<figure class="poster__img"><img src="images/price-list.jpg" alt="Ghouse Readymades price list — all items ₹100" loading="lazy" width="1123" height="1600"></figure>' +
+      '<section class="section poster' + (offerOn() ? "" : " poster--noimg") + '"><div class="poster__text"><h2>' + t(offerOn() ? "poster.title" : "why.title") + '</h2>' + (offerOn() ? '<p>' + t("poster.sub") + '</p>' : "") +
+        '<ul class="why">' + [1, 2, 3, 4].map(function (i) { var k = i === 1 && !offerOn() ? "Off" : ""; return '<li><b>' + t("why." + i + "t" + k) + '</b><span>' + t("why." + i + "d" + k) + '</span></li>'; }).join("") + '</ul>' +
+        '<a class="btn btn--primary" href="#/shop">' + t(offerKey("hero.cta")) + ' →</a></div>' +
+        (offerOn() ? '<figure class="poster__img"><img src="images/price-list.jpg" alt="Ghouse Readymades offer price list" loading="lazy" width="1123" height="1600"></figure>' : "") +
       '</section>' +
 
       faqSection(true);
@@ -254,7 +288,7 @@
         return '<button type="button" class="yt-lite" data-yt="' + esc(v.id) + '" style="background-image:url(https://i.ytimg.com/vi/' + esc(v.id) + '/hqdefault.jpg)"><span class="yt-play"></span><span class="yt-title">' + esc(loc(v.title)) + '</span></button>';
       }).join("") + '</div>';
     } else {
-      body = '<div class="yt-mock" aria-hidden="true"><div class="yt-screen">' + media(byId["fancy-jacket"]) + '<span class="yt-play"></span><span class="yt-price">₹100</span></div></div>';
+      body = '<div class="yt-mock" aria-hidden="true"><div class="yt-screen">' + media(byId["fancy-jacket"]) + '<span class="yt-play"></span>' + (offerOn() ? '<span class="yt-price">' + money(S.offer.price) + '</span>' : "") + '</div></div>';
     }
     return '<section class="section yt"><div class="yt__text"><span class="yt__logo">▶ YouTube</span><h2>' + t("yt.title") + '</h2><p>' + t("yt.sub") + '</p>' +
       '<ul class="ticks"><li>' + t("yt.p1") + '</li><li>' + t("yt.p2") + '</li><li>' + t("yt.p3") + '</li></ul>' +
@@ -291,7 +325,7 @@
         '<label class="sort">' + t("shop.sort") + ' <select id="sortSel">' +
         ["featured", "az", "za"].map(function (s) { return '<option value="' + s + '"' + (state.sort === s ? " selected" : "") + '>' + t("sort." + s) + '</option>'; }).join("") +
         '</select></label></div>' +
-      '<p class="muted">' + t("shop.results", { n: list.length }) + ' · ⏳ ' + t("stock.note") + '</p>' +
+      '<p class="muted">' + t("shop.results", { n: list.length }) + (offerOn() ? ' · ⏳ ' + t("stock.note") : "") + '</p>' +
       (list.length ? grid(list) : '<div class="empty"><p>' + t("shop.empty") + '</p><a class="btn btn--primary" href="#/shop">' + t("shop.clear") + '</a></div>') +
       '</section>';
   };
@@ -308,7 +342,7 @@
     var related = PRODUCTS.filter(function (x) { return x.cat === p.cat && x.id !== p.id; })
       .concat(PRODUCTS.filter(function (x) { return x.cat !== p.cat; })).slice(0, 4);
     var recent = state.recent.filter(function (id) { return id !== p.id && byId[id]; }).slice(0, 4).map(function (id) { return byId[id]; });
-    var enquiry = t("wa.enquiry", { name: pname(p) + " [" + p.code + "]", price: p.price }) + "\n" + pageUrl("#/p/" + p.id);
+    var enquiry = t("wa.enquiry", { name: pname(p) + " [" + p.code + "]", price: priceOf(p) == null ? "?" : priceOf(p) }) + "\n" + pageUrl("#/p/" + p.id);
 
     return '<nav class="crumbs"><a href="#/">' + t("nav.home") + '</a> / <a href="#/shop?cat=' + p.cat + '">' + esc(loc(cat)) + '</a> / <span>' + esc(pname(p)) + '</span></nav>' +
       '<section class="pdp" style="--h:' + p.tint + '">' +
@@ -316,11 +350,13 @@
         '<div class="pdp__info" id="pdpInfo">' +
           '<p class="muted small">' + t("p.code") + ': ' + p.code + ' · ' + esc(loc(cat)) + '</p>' +
           '<h1>' + esc(pname(p)) + '</h1><p class="pdp__alt">' + esc(altName(p)) + '</p>' +
-          '<div class="pdp__price">' + (p.mrp ? '<s>' + money(p.mrp) + '</s>' : "") + '<b>' + money(p.price) + '</b><span class="stock-pill">⏳ ' + t("stock.note") + '</span></div>' +
+          '<div class="pdp__price">' + priceHtml(p, true) +
+            (offerOn() && p.onOffer !== false ? '<span class="stock-pill">🎉 ' + t("offer.badge") + (offerEndsText() ? " · " + offerEndsText() : " · " + t("stock.note")) + '</span>' : "") + '</div>' +
+          (wasOf(p) ? '<p class="save">' + t("p.regular") + ': <s>' + money(wasOf(p)) + '</s> · <b>' + t("p.save", { v: wasOf(p) - priceOf(p) }) + '</b></p>' : "") +
           '<p class="pdp__desc">' + esc(loc(p.desc)) + '</p>' +
-          (p.inStock ? pickerHtml("page", p) : '<p class="soldout">' + t("card.soldout") + '</p>') +
+          (buyable(p) ? pickerHtml("page", p) : p.inStock ? '<p><a class="btn btn--wa btn--lg" target="_blank" rel="noopener" href="' + waLink(enquiry) + '">' + waIcon + t("p.askPriceWa") + '</a></p>' : '<p class="soldout">' + t("card.soldout") + '</p>') +
           (p.options.some(function (o) { return o.key === "size" && o.values.length > 1; }) ? '<p class="hint"><a target="_blank" rel="noopener" href="' + waLink(enquiry + "\nSize?") + '">📏 ' + t("p.sizeHelp") + '</a></p>' : "") +
-          (p.inStock ? '<div class="pdp__buy"><button class="btn btn--primary btn--lg" type="button" id="addBtn">' + t("p.addToCart") + '</button>' +
+          (buyable(p) ? '<div class="pdp__buy"><button class="btn btn--primary btn--lg" type="button" id="addBtn">' + t("p.addToCart") + '</button>' +
             '<button class="btn btn--dark btn--lg" type="button" id="buyBtn">' + t("p.buyNow") + ' →</button></div>' : "") +
           '<div class="pdp__row">' +
             '<a class="btn btn--wa-ghost" target="_blank" rel="noopener" href="' + waLink(enquiry) + '">' + waIcon + t("p.askWa") + '</a>' +
@@ -330,7 +366,7 @@
           '<ul class="assure"><li>🚚 ' + t("p.shipNote") + '</li><li>💳 ' + t("p.payNote") + '</li><li>🏬 ' + t("p.shopNote") + '</li></ul>' +
         '</div>' +
       '</section>' +
-      (p.inStock ? '<div class="pdp-sticky" id="pdpSticky"><div><b>' + money(p.price) + '</b><small>' + esc(pname(p)) + '</small></div><button class="btn btn--primary" type="button" data-sticky-add>' + t("p.addToCart") + '</button></div>' : "") +
+      (buyable(p) ? '<div class="pdp-sticky" id="pdpSticky"><div><b>' + money(priceOf(p)) + '</b><small>' + esc(pname(p)) + '</small></div><button class="btn btn--primary" type="button" data-sticky-add>' + t("p.addToCart") + '</button></div>' : "") +
       '<section class="section"><div class="sec-head"><h2>' + t("p.related") + '</h2></div>' + grid(related) + '</section>' +
       (recent.length ? '<section class="section"><div class="sec-head"><h2>' + t("p.recent") + '</h2></div>' + grid(recent) + '</section>' : "");
   };
@@ -343,7 +379,7 @@
         '<div class="line__info"><a href="#/p/' + p.id + '" class="line__name">' + esc(pname(p)) + '</a>' +
           '<div class="muted small">' + esc(optsText(l.opts)) + '</div>' +
           '<div class="line__row"><div class="stepper stepper--sm"><button type="button" data-line="' + esc(l.key) + '" data-d="-1" aria-label="-">−</button><output>' + l.qty + '</output><button type="button" data-line="' + esc(l.key) + '" data-d="1" aria-label="+">+</button></div>' +
-          '<b>' + money(l.qty * p.price) + '</b></div>' +
+          '<b>' + money(l.qty * priceOf(p)) + '</b></div>' +
           (compact ? "" : '<button class="link small" type="button" data-remove="' + esc(l.key) + '">' + t("cart.remove") + '</button>') +
         '</div></div>';
     }).join("");
@@ -354,18 +390,18 @@
       '<div><span>' + t("cart.subtotal") + ' (' + t("cart.items", { n: n }) + ')</span><span>' + money(sub) + '</span></div>' +
       '<div><span>' + t("cart.shipping") + (method === "pickup" ? "" : ' <small class="muted">' + S.shipping.courier + '</small>') + '</span><span>' + (ship ? money(ship) : t("free")) + '</span></div>' +
       '<div class="totals__grand"><span>' + t("cart.total") + '</span><span>' + money(sub + ship) + '</span></div>' +
-      (n && method !== "pickup" ? '<p class="per-item">🎉 ' + t("cart.perItem", { v: perItem(n) }) + '</p>' : "") +
+      (n > 1 && method !== "pickup" ? '<p class="per-item">🎉 ' + t("cart.perItem", { v: perItem(n, sub) }) + '</p>' : "") +
       '</div>';
   }
   function emptyCart() {
-    return '<div class="empty"><div class="empty__bag">🛍️</div><h3>' + t("cart.empty") + '</h3><p>' + t("cart.emptySub") + '</p><a class="btn btn--primary" href="#/shop">' + t("hero.cta") + '</a></div>';
+    return '<div class="empty"><div class="empty__bag">🛍️</div><h3>' + t("cart.empty") + '</h3><p>' + t(offerKey("cart.emptySub")) + '</p><a class="btn btn--primary" href="#/shop">' + t(offerKey("hero.cta")) + '</a></div>';
   }
   function upsell(limit) {
     var inCart = state.cart.map(function (l) { return l.id; });
-    var list = PRODUCTS.filter(function (p) { return p.inStock && inCart.indexOf(p.id) < 0; }).slice(0, limit);
+    var list = PRODUCTS.filter(function (p) { return buyable(p) && inCart.indexOf(p.id) < 0; }).slice(0, limit);
     if (!list.length) return "";
     return '<div class="upsell"><h4>➕ ' + t("cart.upsell") + '</h4><div class="upsell__row">' + list.map(function (p) {
-      return '<button type="button" class="mini" data-quick="' + p.id + '" style="--h:' + p.tint + '">' + media(p) + '<span>' + esc(pname(p)) + '</span><b>+ ' + money(p.price) + '</b></button>';
+      return '<button type="button" class="mini" data-quick="' + p.id + '" style="--h:' + p.tint + '">' + media(p) + '<span>' + esc(pname(p)) + '</span><b>+ ' + money(priceOf(p)) + '</b></button>';
     }).join("") + '</div></div>';
   }
 
@@ -448,14 +484,14 @@
         '<div class="summary"><h3>' + t("co.summary") + '</h3>' +
           '<div class="mini-lines">' + state.cart.map(function (l) {
             var p = byId[l.id];
-            return '<div class="mline" style="--h:' + p.tint + '"><span class="mline__img">' + media(p) + '<i>' + l.qty + '</i></span><span><b>' + esc(pname(p)) + '</b><small>' + esc(optsText(l.opts)) + '</small></span><b>' + money(l.qty * p.price) + '</b></div>';
+            return '<div class="mline" style="--h:' + p.tint + '"><span class="mline__img">' + media(p) + '<i>' + l.qty + '</i></span><span><b>' + esc(pname(p)) + '</b><small>' + esc(optsText(l.opts)) + '</small></span><b>' + money(l.qty * priceOf(p)) + '</b></div>';
           }).join("") + '</div>' +
           '<div id="coTotals">' + totalsHtml(co.method) + '</div>' +
           '<a href="#/cart" class="link small">✎ ' + t("cart.view") + '</a>' +
         '</div>' +
 
         '<div class="wa-card">' +
-          '<div class="wa-card__head"><span class="wa-card__avatar">₹100</span><div><b>' + esc(loc(S.name)) + '</b><small>+91 ' + S.phoneDisplay + ' · ' + (state.lang === "ta" ? "லால்பேட்டை" : "Lalpet") + '</small></div>' + waIcon + '</div>' +
+          '<div class="wa-card__head"><span class="wa-card__avatar">GR</span><div><b>' + esc(loc(S.name)) + '</b><small>+91 ' + S.phoneDisplay + ' · ' + (state.lang === "ta" ? "லால்பேட்டை" : "Lalpet") + '</small></div>' + waIcon + '</div>' +
           '<div class="wa-card__chat"><p class="wa-card__label">' + t("co.waPreview") + '</p><div class="bubble" id="waBubble"></div></div>' +
           '<div class="wa-card__foot">' +
             '<button class="btn btn--wa btn--lg btn--block" type="button" id="sendWa">' + waIcon + t("co.send") + '</button>' +
@@ -524,7 +560,7 @@
   function buildOrder(d, id) {
     var items = state.cart.map(function (l) {
       var p = byId[l.id];
-      return { id: p.id, code: p.code, en: p.en, ta: p.ta, opts: l.opts, qty: l.qty, price: p.price };
+      return { id: p.id, code: p.code, en: p.en, ta: p.ta, opts: l.opts, qty: l.qty, price: priceOf(p), was: wasOf(p) };
     });
     var sub = subtotal(), ship = shippingFor(d.method);
     return {
@@ -550,7 +586,7 @@
       m.push((i + 1) + ". " + (it[L] || it.en) + " [" + it.code + "]");
       var ot = optsText(it.opts, L);
       if (ot) m.push("    " + ot);
-      m.push("    " + it.qty + " × " + money(it.price) + " = " + money(it.qty * it.price));
+      m.push("    " + it.qty + " × " + money(it.price) + (it.was ? " (" + T("offer.badge") + ", " + T("p.regular") + " " + money(it.was) + ")" : "") + " = " + money(it.qty * it.price));
     });
     m.push(line);
     m.push(T("msg.subtotal") + " (" + T("cart.items", { n: o.count }) + "): " + money(o.subtotal));
@@ -653,17 +689,17 @@
         '</div></div>' +
         '<div class="map"><iframe title="Map" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://maps.google.com/maps?q=' + encodeURIComponent(S.mapQuery) + '&z=15&output=embed"></iframe></div>' +
       '</div></section>' + faqSection(false) +
-      '<section class="section poster poster--solo"><figure class="poster__img"><img src="images/price-list.jpg" alt="Price list" loading="lazy" width="1123" height="1600"></figure></section>';
+      (offerOn() ? '<section class="section poster poster--solo"><figure class="poster__img"><img src="images/price-list.jpg" alt="Offer price list" loading="lazy" width="1123" height="1600"></figure></section>' : "");
   };
 
   /* ---------- quick-add sheet ---------- */
   function openSheet(id) {
-    var p = byId[id]; if (!p) return;
+    var p = byId[id]; if (!p || !buyable(p)) return;
     $("#sheetPanel").innerHTML =
       '<button class="x" type="button" data-close-sheet aria-label="Close">×</button>' +
-      '<div class="sheet__head" style="--h:' + p.tint + '"><span class="sheet__img">' + media(p) + '</span><div><b>' + esc(pname(p)) + '</b><small>' + esc(altName(p)) + '</small><span class="price">' + money(p.price) + '</span></div></div>' +
+      '<div class="sheet__head" style="--h:' + p.tint + '"><span class="sheet__img">' + media(p) + '</span><div><b>' + esc(pname(p)) + '</b><small>' + esc(altName(p)) + '</small>' + priceHtml(p) + '</div></div>' +
       '<div class="sheet__body">' + pickerHtml("sheet", p) + '</div>' +
-      '<div class="sheet__foot"><button class="btn btn--primary btn--lg btn--block" type="button" id="sheetAdd">' + t("p.addToCart") + ' · ' + money(p.price) + '</button>' +
+      '<div class="sheet__foot"><button class="btn btn--primary btn--lg btn--block" type="button" id="sheetAdd">' + t("p.addToCart") + ' · ' + money(priceOf(p)) + '</button>' +
       '<a class="link small" href="#/p/' + p.id + '" data-close-sheet>' + (state.lang === "ta" ? "முழு விவரம் பார்க்க →" : "See full details →") + '</a></div>';
     var sh = $("#sheet");
     sh.classList.add("open"); sh.setAttribute("aria-hidden", "false");
@@ -677,7 +713,7 @@
   }
   function updateSheetPrice() {
     var pk = pickers.sheet, b = $("#sheetAdd");
-    if (pk && b) b.textContent = t("p.addToCart") + " · " + money(pk.qty * byId[pk.id].price);
+    if (pk && b) b.textContent = t("p.addToCart") + " · " + money(pk.qty * priceOf(byId[pk.id]));
   }
 
   /* ---------- drawer ---------- */
@@ -714,18 +750,19 @@
     $$(".hnav a").forEach(function (a) { a.classList.toggle("on", a.getAttribute("href") === "#/" + name); });
     afterRender(name);
     var titles = { shop: t("nav.shop"), cart: t("cart.title"), checkout: t("co.title"), wishlist: t("wish.title"), orders: t("orders.title"), contact: t("nav.about") };
-    var base = loc(S.name) + " — " + (state.lang === "ta" ? "எல்லாமே ₹100" : "Everything ₹100");
-    document.title = name === "p" && byId[r.parts[1]] ? pname(byId[r.parts[1]]) + " ₹100 | " + loc(S.name) : (titles[name] ? titles[name] + " | " + loc(S.name) : base);
+    var base = loc(S.name) + " — " + (offerOn() ? t("offer.bar").replace("🎉 ", "") : t("ticker.1off"));
+    var pp = name === "p" && byId[r.parts[1]];
+    document.title = pp ? pname(pp) + (priceOf(pp) ? " " + money(priceOf(pp)) : "") + " | " + loc(S.name) : (titles[name] ? titles[name] + " | " + loc(S.name) : base);
   }
 
   function afterRender(name) {
-    if (name === "home") {
+    if (name === "home" && $("#shipRange")) {
       var rng = $("#shipRange");
       var upd = function () {
-        var n = +rng.value, tot = n * 100 + S.shipping.fee;
+        var n = +rng.value, tot = n * S.offer.price + S.shipping.fee;
         $("#shipOut").innerHTML = '<div class="ship__n"><b>' + n + '</b> ' + (n > 1 ? t("ship.items") : t("ship.item")) + '</div>' +
-          '<div class="ship__calc">' + n + ' × ₹100 + ₹' + S.shipping.fee + ' = <b>' + money(tot) + '</b></div>' +
-          '<div class="ship__per"><b>' + money(perItem(n)) + '</b> ' + t("ship.per") + '</div>';
+          '<div class="ship__calc">' + n + ' × ' + money(S.offer.price) + ' + ₹' + S.shipping.fee + ' = <b>' + money(tot) + '</b></div>' +
+          '<div class="ship__per"><b>' + money(perItem(n, n * S.offer.price)) + '</b> ' + t("ship.per") + '</div>';
         rng.style.setProperty("--p", ((n - 1) / 9 * 100) + "%");
       };
       rng.addEventListener("input", upd); upd();
@@ -822,7 +859,7 @@
     }
     if ((el = e.target.closest("[data-reorder]"))) {
       var o = state.orders.filter(function (x) { return x.id === el.dataset.reorder; })[0];
-      if (o) { o.items.forEach(function (it) { if (byId[it.id] && byId[it.id].inStock) addToCart(it.id, it.opts, it.qty); }); location.hash = "#/cart"; }
+      if (o) { o.items.forEach(function (it) { if (byId[it.id] && buyable(byId[it.id])) addToCart(it.id, it.opts, it.qty); }); location.hash = "#/cart"; }
       return;
     }
     if ((el = e.target.closest("[data-suggest]"))) { $("#searchSuggest").hidden = true; $("#searchInput").value = ""; return; }
@@ -844,7 +881,7 @@
     }
   }
   function share(p) {
-    var url = pageUrl("#/p/" + p.id), text = t("share.text", { name: pname(p), price: p.price });
+    var url = pageUrl("#/p/" + p.id), text = t("share.text", { name: pname(p), price: priceOf(p) || "?" });
     if (navigator.share) navigator.share({ title: pname(p), text: text, url: url }).catch(function () {});
     else window.open("https://wa.me/?text=" + encodeURIComponent(text + "\n" + url), "_blank");
   }
@@ -861,7 +898,7 @@
     if (!q) { sBox.hidden = true; return; }
     var res = PRODUCTS.filter(function (p) { return searchMatch(p, q); }).slice(0, 6);
     sBox.innerHTML = res.length ? res.map(function (p) {
-      return '<a href="#/p/' + p.id + '" data-suggest style="--h:' + p.tint + '"><span class="sg-img">' + media(p) + '</span><span><b>' + esc(pname(p)) + '</b><small>' + esc(altName(p)) + '</small></span><em>' + money(p.price) + '</em></a>';
+      return '<a href="#/p/' + p.id + '" data-suggest style="--h:' + p.tint + '"><span class="sg-img">' + media(p) + '</span><span><b>' + esc(pname(p)) + '</b><small>' + esc(altName(p)) + '</small></span><em>' + (priceOf(p) ? money(priceOf(p)) : "") + '</em></a>';
     }).join("") : '<p class="muted small">' + t("shop.empty") + '</p>';
     sBox.hidden = false;
   });
@@ -879,10 +916,12 @@
     document.body.classList.toggle("is-ta", state.lang === "ta");
     $$("[data-i18n]").forEach(function (el) { el.textContent = t(el.dataset.i18n); });
     $$("[data-i18n-ph]").forEach(function (el) { el.placeholder = t(el.dataset.i18nPh); });
-    var items = [1, 2, 3, 4, 5].map(function (i) { return "<span>✦ " + t("ticker." + i) + "</span>"; }).join("");
+    var items = [1, 2, 3, 4, 5].map(function (i) { return "<span>✦ " + t("ticker." + i + (i === 1 && !offerOn() ? "off" : "")) + "</span>"; }).join("");
     $("#ticker").innerHTML = items + items;
     var offer = loc(S.offerBanner);
-    $("#offerBar").hidden = !offer; $("#offerBar").textContent = offer ? "🎁 " + offer : "";
+    if (offer) offer = "🎁 " + offer;
+    else if (offerOn()) offer = t("offer.bar") + (offerEndsText() ? " ⏰ " + offerEndsText() : "");
+    $("#offerBar").hidden = !offer; $("#offerBar").textContent = offer;
     $("#waFloat").href = waLink(t("wa.hello"));
     $("#footAddr").textContent = loc(S.address);
     $("#footPhone").textContent = "📞 +91 " + S.phoneDisplay; $("#footPhone").href = "tel:" + S.phone;
@@ -911,7 +950,7 @@
           item: {
             "@type": "Product", name: p.en + " / " + p.ta, sku: p.code, description: p.desc.en,
             url: pageUrl("#/p/" + p.id),
-            offers: { "@type": "Offer", price: p.price, priceCurrency: "INR", availability: "https://schema.org/" + (p.inStock ? "InStock" : "OutOfStock") }
+            offers: priceOf(p) == null ? undefined : { "@type": "Offer", price: priceOf(p), priceCurrency: "INR", availability: "https://schema.org/" + (p.inStock ? "InStock" : "OutOfStock") }
           }
         };
       })
