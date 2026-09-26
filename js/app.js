@@ -75,6 +75,7 @@
   function colorById(id) { return window.COLORS.filter(function (c) { return c.id === id; })[0] || window.COLORS[0]; }
   function waLink(text) { return "https://wa.me/" + S.whatsapp + "?text=" + encodeURIComponent(text); }
   function pageUrl(hash) { return "https://" + S.siteUrl + "/" + (hash || ""); }
+  function productUrl(p) { return pageUrl("product/" + p.id + "/"); }
   function media(p, cls) {
     if (p.images && p.images.length)
       return '<img class="' + (cls || "") + '" src="' + esc(p.images[0]) + '" alt="' + esc(pname(p)) + '" loading="lazy">';
@@ -180,7 +181,7 @@
       '<div class="card__row">' +
       (priceOf(p) == null && p.inStock ? "" : priceHtml(p)) +
       (buyable(p) ? '<button class="btn-add" type="button" data-quick="' + p.id + '"><b>+</b> ' + t("card.add") + '</button>'
-        : p.inStock ? '<a class="btn-add btn-add--wa" target="_blank" rel="noopener" href="' + waLink(t("wa.enquiry", { name: pname(p) + " [" + p.code + "]", price: "?" }) + "\n" + pageUrl("#/p/" + p.id)) + '">' + t("p.askPrice") + '</a>'
+        : p.inStock ? '<a class="btn-add btn-add--wa" target="_blank" rel="noopener" href="' + waLink(t("wa.enquiry", { name: pname(p) + " [" + p.code + "]", price: "?" }) + "\n" + productUrl(p)) + '">' + t("p.askPrice") + '</a>'
         : '<span class="muted small">' + t("card.soldout") + '</span>') +
       '</div></div></article>';
   }
@@ -361,7 +362,7 @@
     var related = PRODUCTS.filter(function (x) { return x.cat === p.cat && x.id !== p.id; })
       .concat(PRODUCTS.filter(function (x) { return x.cat !== p.cat; })).slice(0, 4);
     var recent = state.recent.filter(function (id) { return id !== p.id && byId[id]; }).slice(0, 4).map(function (id) { return byId[id]; });
-    var enquiry = t("wa.enquiry", { name: pname(p) + " [" + p.code + "]", price: priceOf(p) == null ? "?" : priceOf(p) }) + "\n" + pageUrl("#/p/" + p.id);
+    var enquiry = t("wa.enquiry", { name: pname(p) + " [" + p.code + "]", price: priceOf(p) == null ? "?" : priceOf(p) }) + "\n" + productUrl(p);
 
     return '<nav class="crumbs"><a href="#/">' + t("nav.home") + '</a> / <a href="#/shop?cat=' + p.cat + '">' + esc(loc(cat)) + '</a> / <span>' + esc(pname(p)) + '</span></nav>' +
       '<section class="pdp" style="--h:' + p.tint + '">' +
@@ -906,7 +907,7 @@
     }
   }
   function share(p) {
-    var url = pageUrl("#/p/" + p.id), text = t("share.text", { name: pname(p), price: priceOf(p) || "?" });
+    var url = productUrl(p), text = t("share.text", { name: pname(p), price: priceOf(p) || "?" });
     if (navigator.share) navigator.share({ title: pname(p), text: text, url: url }).catch(function () {});
     else window.open("https://wa.me/?text=" + encodeURIComponent(text + "\n" + url), "_blank");
   }
@@ -967,24 +968,6 @@
   /* header shadow on scroll */
   window.addEventListener("scroll", function () { $("#header").classList.toggle("scrolled", window.scrollY > 10); }, { passive: true });
 
-  /* product structured data for search engines */
-  (function () {
-    var ld = {
-      "@context": "https://schema.org", "@type": "ItemList",
-      itemListElement: PRODUCTS.map(function (p, i) {
-        return {
-          "@type": "ListItem", position: i + 1,
-          item: {
-            "@type": "Product", name: p.en + " / " + p.ta, sku: p.code, description: p.desc.en,
-            url: pageUrl("#/p/" + p.id),
-            offers: priceOf(p) == null ? undefined : { "@type": "Offer", price: priceOf(p), priceCurrency: "INR", availability: "https://schema.org/" + (p.inStock ? "InStock" : "OutOfStock") }
-          }
-        };
-      })
-    };
-    var s = document.createElement("script"); s.type = "application/ld+json"; s.textContent = JSON.stringify(ld);
-    document.head.appendChild(s);
-  })();
 
   $("#year").textContent = new Date().getFullYear();
   window.addEventListener("hashchange", function () { closeDrawer(); closeSheet(); render(); });

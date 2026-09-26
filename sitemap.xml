@@ -1,4 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://ashrafwebdev.github.io/ghousereadymade/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  <url><loc>https://ashrafwebdev.github.io/ghousereadymade/</loc><lastmod>2026-09-26</lastmod><priority>1.0</priority></url>
+  <url><loc>https://ashrafwebdev.github.io/ghousereadymade/category/jackets/</loc><lastmod>2026-09-26</lastmod><priority>0.8</priority></url>
+  <url><loc>https://ashrafwebdev.github.io/ghousereadymade/category/pants/</loc><lastmod>2026-09-26</lastmod><priority>0.8</priority></url>
+  <url><loc>https://ashrafwebdev.github.io/ghousereadymade/category/burqa/</loc><lastmod>2026-09-26</lastmod><priority>0.8</priority></url>
+  <url><loc>https://ashrafwebdev.github.io/ghousereadymade/category/essentials/</loc><lastmod>2026-09-26</lastmod><priority>0.8</priority></url>
+  <url><loc>https://ashrafwebdev.github.io/ghousereadymade/category/kids/</loc><lastmod>2026-09-26</lastmod><priority>0.8</priority></url>
+  <url><loc>https://ashrafwebdev.github.io/ghousereadymade/product/readymade-jacket/</loc><lastmod>2026-09-26</lastmod><priority>0.9</priority><image:image><image:loc>https://ashrafwebdev.github.io/ghousereadymade/images/products/readymade-jacket-1.jpg</image:loc></image:image><image:image><image:loc>https://ashrafwebdev.github.io/ghousereadymade/images/products/readymade-jacket-2.jpg</image:loc></image:image></url>
+  <url><loc>https://ashrafwebdev.github.io/ghousereadymade/product/popcorn-jacket/</loc><lastmod>2026-09-26</lastmod><priority>0.9</priority></url>
+  <url><loc>https://ashrafwebdev.github.io/ghousereadymade/product/fancy-jacket/</loc><lastmod>2026-09-26</lastmod><priority>0.9</priority></url>
+  <url><loc>https://ashrafwebdev.github.io/ghousereadymade/product/patiala-pant/</loc><lastmod>2026-09-26</lastmod><priority>0.9</priority><image:image><image:loc>https://ashrafwebdev.github.io/ghousereadymade/images/products/patiala-pant-1.jpg</image:loc></image:image></url>
+  <url><loc>https://ashrafwebdev.github.io/ghousereadymade/product/leggings-pant/</loc><lastmod>2026-09-26</lastmod><priority>0.9</priority><image:image><image:loc>https://ashrafwebdev.github.io/ghousereadymade/images/products/leggings-pant-1.jpg</image:loc></image:image></url>
+  <url><loc>https://ashrafwebdev.github.io/ghousereadymade/product/palazzo-pant/</loc><lastmod>2026-09-26</lastmod><priority>0.9</priority><image:image><image:loc>https://ashrafwebdev.github.io/ghousereadymade/images/products/palazzo-pant-1.jpg</image:loc></image:image></url>
+  <url><loc>https://ashrafwebdev.github.io/ghousereadymade/product/burqa-shawl/</loc><lastmod>2026-09-26</lastmod><priority>0.9</priority><image:image><image:loc>https://ashrafwebdev.github.io/ghousereadymade/images/products/burqa-shawl-1.jpg</image:loc></image:image></url>
+  <url><loc>https://ashrafwebdev.github.io/ghousereadymade/product/burqa-face-veil/</loc><lastmod>2026-09-26</lastmod><priority>0.9</priority></url>
+  <url><loc>https://ashrafwebdev.github.io/ghousereadymade/product/burqa-mask/</loc><lastmod>2026-09-26</lastmod><priority>0.9</priority></url>
+  <url><loc>https://ashrafwebdev.github.io/ghousereadymade/product/hand-leg-socks/</loc><lastmod>2026-09-26</lastmod><priority>0.9</priority></url>
+  <url><loc>https://ashrafwebdev.github.io/ghousereadymade/product/pillow-cover/</loc><lastmod>2026-09-26</lastmod><priority>0.9</priority></url>
+  <url><loc>https://ashrafwebdev.github.io/ghousereadymade/product/jacket-bit/</loc><lastmod>2026-09-26</lastmod><priority>0.9</priority></url>
+  <url><loc>https://ashrafwebdev.github.io/ghousereadymade/product/inskirt/</loc><lastmod>2026-09-26</lastmod><priority>0.9</priority></url>
+  <url><loc>https://ashrafwebdev.github.io/ghousereadymade/product/makkana/</loc><lastmod>2026-09-26</lastmod><priority>0.9</priority></url>
+  <url><loc>https://ashrafwebdev.github.io/ghousereadymade/product/kids-wear/</loc><lastmod>2026-09-26</lastmod><priority>0.9</priority><image:image><image:loc>https://ashrafwebdev.github.io/ghousereadymade/images/products/kids-wear-1.jpg</image:loc></image:image></url>
 </urlset>

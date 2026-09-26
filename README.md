@@ -63,6 +63,15 @@ The current photos of the readymade jacket, patiala, leggings, palazzo, burqa sh
 
 **Marking a product as sold out.** Set `inStock: false` for that product in `js/products.js`.
 
+## SEO (Google search and link previews)
+
+- **A real page for every product and category.** For example, `product/readymade-jacket/` and `category/pants/`. Each page has its own title and description, bilingual content, a share image and structured data (Product, Offer with price and shipping, BreadcrumbList, ClothingStore, WebSite). Google can index each product separately, and a product link shared on WhatsApp or Facebook shows the product picture and name.
+- **The site uses these links.** The Share button and "Ask on WhatsApp" send the product page link.
+- **`sitemap.xml`** lists every page, with product photos.
+- **Rebuilding the pages.** The generated pages come from `js/config.js` and `js/products.js`. A GitHub Action (`.github/workflows/build-seo.yml`) rebuilds them automatically when those files change on `main`. To rebuild by hand, run `node tools/build-seo.js`. To remake the share images (this needs Playwright), run `node tools/build-og.js`.
+- **Google Search Console.** Add the site at https://search.google.com/search-console as a *URL prefix* property: `https://ashrafwebdev.github.io/ghousereadymade/`. Verify it with the HTML-tag method by pasting the tag into `index.html`, then submit `sitemap.xml`.
+- **Google Business Profile.** Setting up a free profile for the Lalpet shop (https://business.google.com) that links to this website helps the most for "readymade shop near me" searches.
+
 ## Publishing on GitHub Pages
 
 The site is live at **https://ashrafwebdev.github.io/ghousereadymade/** (Settings → Pages → `main`, `/ (root)`).

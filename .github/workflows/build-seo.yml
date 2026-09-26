@@ -1,0 +1,35 @@
+# Rebuilds the SEO pages (product/, category/, sitemap.xml, index.html head)
+# whenever products, prices or shop details change on main.
+name: Build SEO pages
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "js/config.js"
+      - "js/products.js"
+      - "js/i18n.js"
+      - "js/art.js"
+      - "tools/build-seo.js"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: node tools/build-seo.js
+      - name: Commit updated pages
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A index.html sitemap.xml product category
+          if git diff --cached --quiet; then echo "No changes"; exit 0; fi
+          git commit -m "Rebuild SEO pages"
+          git push
