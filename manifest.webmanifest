@@ -1,0 +1,16 @@
+{
+  "name": "Ghouse Readymades — Everything ₹100",
+  "short_name": "Ghouse ₹100",
+  "description": "Readymade jackets, pants, burqa wear & kids wear — all ₹100. Flat ₹50 shipping across Tamil Nadu.",
+  "start_url": "./#/",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#fff6ea",
+  "theme_color": "#5b1a52",
+  "lang": "ta",
+  "icons": [
+    { "src": "images/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "images/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" },
+    { "src": "favicon.svg", "sizes": "any", "type": "image/svg+xml" }
+  ]
+}
