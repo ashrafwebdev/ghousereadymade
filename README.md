@@ -55,6 +55,8 @@ Until you add a photo, the site shows a drawn picture of the product.
 - A product without a `regularPrice` shows "Ask price on WhatsApp" once the offer is off.
 - While the offer is off, the ₹100 price-list poster, the ₹100 badges and the offer bar are hidden automatically.
 
+**Social media.** In `js/config.js`, `instagram`, `facebook` and `whatsappGroup` hold your Instagram, Facebook page and WhatsApp group links. They appear in the footer and on the Contact page. The WhatsApp group also gets an "offer alerts" box on the home page and after each order. Set any of them to `""` to hide it.
+
 **Showing a custom message at the top of the site.** In `js/config.js`, fill in the `offerBanner` text in English and Tamil. Leave it empty to show the automatic offer message (or nothing when no offer is running).
 
 **Marking a product as sold out.** Set `inStock: false` for that product in `js/products.js`.

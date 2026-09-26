@@ -153,6 +153,19 @@
   var heart = '<svg viewBox="0 0 24 24"><path d="M12 21s-7.5-4.6-9.5-9.2C1.2 8.6 3.3 5 6.8 5c2 0 3.4 1.1 4.2 2.4h2C13.8 6.1 15.2 5 17.2 5c3.5 0 5.6 3.6 4.3 6.8C19.5 16.4 12 21 12 21z"/></svg>';
   var waIcon = '<svg viewBox="0 0 32 32" class="wa-i"><path fill="currentColor" d="M16 3a13 13 0 0 0-11.2 19.6L3 29l6.6-1.7A13 13 0 1 0 16 3zm0 23.7a10.7 10.7 0 0 1-5.5-1.5l-.4-.2-3.9 1 1-3.8-.3-.4A10.7 10.7 0 1 1 16 26.7zm5.9-8c-.3-.2-1.9-1-2.2-1-.3-.1-.5-.2-.7.1l-1 1.3c-.2.2-.4.2-.7.1a8.8 8.8 0 0 1-4.4-3.8c-.3-.6.3-.5 1-1.8.1-.2 0-.4 0-.6l-1-2.4c-.3-.6-.5-.5-.7-.5h-.6a1.2 1.2 0 0 0-.9.4 3.7 3.7 0 0 0-1.1 2.7 6.4 6.4 0 0 0 1.3 3.4 14.7 14.7 0 0 0 5.7 5c2.1.9 2.9 1 4 .8.6-.1 1.9-.8 2.2-1.5.3-.7.3-1.4.2-1.5-.1-.2-.3-.3-.6-.4z"/></svg>';
 
+  var igIcon = '<svg viewBox="0 0 24 24" class="soc-i" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>';
+  var fbIcon = '<svg viewBox="0 0 24 24" class="soc-i"><path fill="currentColor" d="M13.5 21v-7.5h2.6l.4-3h-3V8.6c0-.9.3-1.5 1.5-1.5h1.6V4.4c-.3 0-1.2-.1-2.3-.1-2.3 0-3.8 1.4-3.8 3.9v2.3H7.9v3h2.6V21z"/></svg>';
+  var ytIcon = '<svg viewBox="0 0 24 24" class="soc-i"><path fill="currentColor" d="M21.6 7.2a2.5 2.5 0 0 0-1.8-1.8C18.2 5 12 5 12 5s-6.2 0-7.8.4A2.5 2.5 0 0 0 2.4 7.2 26 26 0 0 0 2 12a26 26 0 0 0 .4 4.8 2.5 2.5 0 0 0 1.8 1.8C5.8 19 12 19 12 19s6.2 0 7.8-.4a2.5 2.5 0 0 0 1.8-1.8A26 26 0 0 0 22 12a26 26 0 0 0-.4-4.8zM10 15V9l5.2 3z"/></svg>';
+  function groupCta() {
+    if (!S.whatsappGroup) return "";
+    return '<div class="group-cta"><div><b>📢 ' + t("group.title") + '</b><span>' + t("group.sub") + '</span></div>' +
+      '<a class="btn btn--wa" target="_blank" rel="noopener" href="' + esc(S.whatsappGroup) + '">' + waIcon + t("group.btn") + '</a></div>';
+  }
+  function socialButtons() {
+    return (S.instagram ? '<a class="btn btn--ig" target="_blank" rel="noopener" href="' + esc(S.instagram) + '">' + igIcon + 'Instagram</a>' : "") +
+      (S.facebook ? '<a class="btn btn--fb" target="_blank" rel="noopener" href="' + esc(S.facebook) + '">' + fbIcon + 'Facebook</a>' : "");
+  }
+
   function card(p) {
     var inWish = state.wish.indexOf(p.id) > -1;
     return '<article class="card' + (p.inStock ? "" : " is-out") + '" style="--h:' + p.tint + '">' +
@@ -270,6 +283,7 @@
       '</ol></section>' +
 
       youtubeSection() +
+      (S.whatsappGroup ? '<section class="section">' + groupCta() + '</section>' : "") +
 
       '<section class="section poster' + (offerOn() ? "" : " poster--noimg") + '"><div class="poster__text"><h2>' + t(offerOn() ? "poster.title" : "why.title") + '</h2>' + (offerOn() ? '<p>' + t("poster.sub") + '</p>' : "") +
         '<ul class="why">' + [1, 2, 3, 4].map(function (i) { var k = i === 1 && !offerOn() ? "Off" : ""; return '<li><b>' + t("why." + i + "t" + k) + '</b><span>' + t("why." + i + "d" + k) + '</span></li>'; }).join("") + '</ul>' +
@@ -659,7 +673,7 @@
         '<div class="bubble bubble--static">' + waFormat(orderMessage(o)) + '</div>' +
         '<h3>' + t("ok.next") + '</h3><ol class="next"><li>' + t("ok.n1") + '</li><li>' + t("ok.n2") + '</li><li>' + t("ok.n3") + '</li></ol>' +
         '<a class="btn btn--ghost" href="#/shop">' + t("ok.shop") + ' →</a>' +
-      '</div></section>';
+      '</div>' + groupCta() + '</section>';
   };
 
   views.orders = function () {
@@ -690,7 +704,9 @@
           '<a class="btn btn--wa" target="_blank" rel="noopener" href="' + waLink(t("wa.hello")) + '">' + waIcon + t("about.chat") + '</a>' +
           '<a class="btn btn--dark" href="tel:' + S.phone + '">📞 ' + t("about.call") + ': ' + S.phoneDisplay + '</a>' +
           '<a class="btn btn--ghost" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(S.mapQuery) + '">📍 ' + t("about.dir") + '</a>' +
-          '<a class="btn btn--yt" target="_blank" rel="noopener" href="' + esc(S.youtube.channelUrl) + '">▶ YouTube</a>' +
+          '<a class="btn btn--yt" target="_blank" rel="noopener" href="' + esc(S.youtube.channelUrl) + '">' + ytIcon + 'YouTube</a>' +
+          socialButtons() +
+          (S.whatsappGroup ? '<a class="btn btn--wa-ghost" target="_blank" rel="noopener" href="' + esc(S.whatsappGroup) + '">' + waIcon + t("group.btn") + '</a>' : "") +
         '</div></div>' +
         '<div class="map"><iframe title="Map" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://maps.google.com/maps?q=' + encodeURIComponent(S.mapQuery) + '&z=15&output=embed"></iframe></div>' +
       '</div></section>' + faqSection(false) +
@@ -934,10 +950,11 @@
     $("#waFloat").href = waLink(t("wa.hello"));
     $("#footAddr").textContent = loc(S.address);
     $("#footPhone").textContent = "📞 +91 " + S.phoneDisplay; $("#footPhone").href = "tel:" + S.phone;
-    var soc = '<a target="_blank" rel="noopener" href="' + esc(S.youtube.channelUrl) + '">▶ YouTube</a>' +
+    var soc = '<a target="_blank" rel="noopener" href="' + esc(S.youtube.channelUrl) + '">' + ytIcon + ' YouTube</a>' +
+      (S.instagram ? '<a target="_blank" rel="noopener" href="' + esc(S.instagram) + '">' + igIcon + ' Instagram</a>' : "") +
+      (S.facebook ? '<a target="_blank" rel="noopener" href="' + esc(S.facebook) + '">' + fbIcon + ' Facebook</a>' : "") +
       '<a target="_blank" rel="noopener" href="' + waLink(t("wa.hello")) + '">' + waIcon + ' WhatsApp</a>' +
-      (S.instagram ? '<a target="_blank" rel="noopener" href="' + esc(S.instagram) + '">◎ Instagram</a>' : "") +
-      (S.facebook ? '<a target="_blank" rel="noopener" href="' + esc(S.facebook) + '">f Facebook</a>' : "");
+      (S.whatsappGroup ? '<a target="_blank" rel="noopener" href="' + esc(S.whatsappGroup) + '">' + waIcon + ' ' + t("group.short") + '</a>' : "");
     $("#socials").innerHTML = soc;
   }
   $("#langBtn").addEventListener("click", function () {

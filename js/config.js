@@ -62,6 +62,8 @@ window.STORE = {
     ta: ""
   },
 
-  instagram: "",
-  facebook: ""
+  // Social media (leave "" to hide)
+  instagram: "https://www.instagram.com/gouse_readymades/",
+  facebook: "https://www.facebook.com/share/1DbG8ZxKdr/",
+  whatsappGroup: "https://chat.whatsapp.com/ILBhrlZVVRd8Ge8y3qoh5h"
 };

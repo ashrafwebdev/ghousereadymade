@@ -136,6 +136,13 @@ main { max-width: var(--wrap); margin: 0 auto; padding: 0 16px 40px; min-height:
 .btn--yt { background: var(--yt); color: #fff; }
 .btn.small { min-height: 38px; padding: 6px 14px; font-size: .88rem; }
 .wa-i { width: 22px; height: 22px; flex-shrink: 0; }
+.soc-i { width: 20px; height: 20px; flex-shrink: 0; }
+.btn--ig { background: linear-gradient(45deg, #f9a825, #e1306c 45%, #833ab4); color: #fff; }
+.btn--fb { background: #1877f2; color: #fff; }
+.group-cta { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; background: #e9fbef; border: 2px dashed #7ddba0; border-radius: var(--r); padding: 18px 20px; margin-top: 18px; text-align: left; }
+.group-cta b { display: block; font-family: var(--head); font-size: 1.15rem; color: #0b5e3a; }
+.group-cta span { color: #2e5e45; font-size: .93rem; }
+.success .group-cta { max-width: 620px; margin: 18px auto 0; }
 
 /* ---------- hero ---------- */
 .hero { display: grid; grid-template-columns: 1.1fr .9fr; gap: 32px; align-items: center; padding: 40px 0 24px; }

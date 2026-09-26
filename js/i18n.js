@@ -202,6 +202,7 @@ window.I18N = {
     "p.save": "You save ₹{v}",
     "p.askPrice": "Ask price",
     "p.askPriceWa": "Ask price on WhatsApp",
+    "group.title": "Get offer alerts on WhatsApp", "group.sub": "Join our WhatsApp group — new arrivals and offer prices first.", "group.btn": "Join WhatsApp group", "group.short": "WhatsApp group",
     "free": "Free"
   },
 
@@ -407,6 +408,7 @@ window.I18N = {
     "p.save": "₹{v} சேமிப்பு",
     "p.askPrice": "விலை கேளுங்கள்",
     "p.askPriceWa": "WhatsApp-ல் விலை கேளுங்கள்",
+    "group.title": "ஆஃபர் தகவல்களை WhatsApp-ல் பெறுங்கள்", "group.sub": "எங்கள் WhatsApp குழுவில் சேருங்கள் — புதிய வரவுகள், ஆஃபர் விலைகள் முதலில் உங்களுக்கு.", "group.btn": "WhatsApp குழுவில் சேர", "group.short": "WhatsApp குழு",
     "free": "இலவசம்"
   }
 };
