@@ -13,7 +13,7 @@ The site is plain HTML, CSS and JavaScript. It has no server and no build step, 
 - **Product pages.** Customers pick size, age or type and a colour, and set the quantity. Each page has Buy now, Ask on WhatsApp, Share and Wishlist buttons, plus related and recently viewed products.
 - **Quick-add popup.** Customers can add a product straight from the product grid.
 - **Cart.** It shows the ₹50 flat shipping and how much each item costs once shipping is included (for example, 5 items work out to ₹110 each). It also suggests other products, which leaves the shipping fee unchanged.
-- **Order page with a WhatsApp preview.** It shows the shop's profile in WhatsApp style and a live preview of the message. The customer taps once to send the full order to 82204 61646. Every message ends with:
+- **Order page with a WhatsApp preview.** It shows the shop's profile in WhatsApp style and a live preview of the message. The customer taps once to send the full order to WhatsApp 80728 77443. Every message ends with:
   > 🌐 This order is placed through **ashrafwebdev.github.io/ghousereadymade**
 - **Checkout form.** The phone number and Tamil Nadu pincode are checked, all 38 districts plus Puducherry are listed, and customers can choose ST Courier or collect from the shop. The form can remember the customer's details.
 - **Order IDs and order history.** Each order gets an ID (for example `GR260926-4821`). The *My Orders* page lets a customer resend an order on WhatsApp or order the same items again.
@@ -31,7 +31,7 @@ The site is plain HTML, CSS and JavaScript. It has no server and no build step, 
 
 | What to change | File |
 |---|---|
-| Phone / WhatsApp number, shipping fee, YouTube link, offer banner, cash on delivery | `js/config.js` |
+| WhatsApp order number (`whatsapp`), call number (`phone`), shipping fee, YouTube link, offer banner, cash on delivery | `js/config.js` |
 | Products, prices, sizes, sold out, photos | `js/products.js` |
 | Any website text (English / Tamil) | `js/i18n.js` |
 

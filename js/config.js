@@ -8,8 +8,10 @@
 window.STORE = {
   name: { en: "Ghouse Readymades", ta: "கவுஸ் ரெடிமேட்ஸ்" },
 
-  // WhatsApp number with country code, digits only (orders are sent here)
-  whatsapp: "918220461646",
+  // WhatsApp number for orders and chat, with country code, digits only
+  whatsapp: "918072877443",
+  whatsappDisplay: "80728 77443",
+  // Phone number for calls (shown on Contact page and footer)
   phone: "+918220461646",
   phoneDisplay: "82204 61646",
 

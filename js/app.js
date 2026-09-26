@@ -510,7 +510,7 @@
         '</div>' +
 
         '<div class="wa-card">' +
-          '<div class="wa-card__head"><span class="wa-card__avatar">GR</span><div><b>' + esc(loc(S.name)) + '</b><small>+91 ' + S.phoneDisplay + ' · ' + (state.lang === "ta" ? "லால்பேட்டை" : "Lalpet") + '</small></div>' + waIcon + '</div>' +
+          '<div class="wa-card__head"><span class="wa-card__avatar">GR</span><div><b>' + esc(loc(S.name)) + '</b><small>+91 ' + (S.whatsappDisplay || S.phoneDisplay) + ' · ' + (state.lang === "ta" ? "லால்பேட்டை" : "Lalpet") + '</small></div>' + waIcon + '</div>' +
           '<div class="wa-card__chat"><p class="wa-card__label">' + t("co.waPreview") + '</p><div class="bubble" id="waBubble"></div></div>' +
           '<div class="wa-card__foot">' +
             '<button class="btn btn--wa btn--lg btn--block" type="button" id="sendWa">' + waIcon + t("co.send") + '</button>' +
@@ -701,7 +701,7 @@
       '<div class="contact__grid"><div class="contact__card">' +
         '<h3>🏬 ' + t("about.shop") + '</h3><p><b>' + esc(loc(S.name)) + '</b><br>' + esc(loc(S.address)) + '</p>' +
         '<div class="contact__btns">' +
-          '<a class="btn btn--wa" target="_blank" rel="noopener" href="' + waLink(t("wa.hello")) + '">' + waIcon + t("about.chat") + '</a>' +
+          '<a class="btn btn--wa" target="_blank" rel="noopener" href="' + waLink(t("wa.hello")) + '">' + waIcon + t("about.chat") + (S.whatsappDisplay ? ': ' + S.whatsappDisplay : "") + '</a>' +
           '<a class="btn btn--dark" href="tel:' + S.phone + '">📞 ' + t("about.call") + ': ' + S.phoneDisplay + '</a>' +
           '<a class="btn btn--ghost" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(S.mapQuery) + '">📍 ' + t("about.dir") + '</a>' +
           '<a class="btn btn--yt" target="_blank" rel="noopener" href="' + esc(S.youtube.channelUrl) + '">' + ytIcon + 'YouTube</a>' +
@@ -950,6 +950,7 @@
     $("#waFloat").href = waLink(t("wa.hello"));
     $("#footAddr").textContent = loc(S.address);
     $("#footPhone").textContent = "📞 +91 " + S.phoneDisplay; $("#footPhone").href = "tel:" + S.phone;
+    if (S.whatsappDisplay) $("#footWa").innerHTML = '<a target="_blank" rel="noopener" href="' + waLink(t("wa.hello")) + '">' + waIcon + ' WhatsApp: +91 ' + S.whatsappDisplay + '</a>';
     var soc = '<a target="_blank" rel="noopener" href="' + esc(S.youtube.channelUrl) + '">' + ytIcon + ' YouTube</a>' +
       (S.instagram ? '<a target="_blank" rel="noopener" href="' + esc(S.instagram) + '">' + igIcon + ' Instagram</a>' : "") +
       (S.facebook ? '<a target="_blank" rel="noopener" href="' + esc(S.facebook) + '">' + fbIcon + ' Facebook</a>' : "") +

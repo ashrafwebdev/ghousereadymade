@@ -501,7 +501,9 @@ legend + * { clear: both; }
 .brand--footer .brand__seal { box-shadow: 0 0 0 3px var(--plum), 0 0 0 5px var(--gold); }
 .socials { display: grid; gap: 8px; }
 .socials a { display: inline-flex; align-items: center; gap: 6px; }
-.socials .wa-i { width: 18px; height: 18px; }
+.socials .wa-i, .foot-wa .wa-i { width: 18px; height: 18px; }
+.foot-wa a { display: inline-flex; align-items: center; gap: 6px; }
+.foot-wa:empty { display: none; }
 .footer__bottom { text-align: center; padding: 14px 16px calc(14px + var(--bnav-space, 0px)); border-top: 1px solid rgba(255, 255, 255, .12); font-size: .82rem; opacity: .8; }
 
 /* ---------- bottom nav (mobile) ---------- */
