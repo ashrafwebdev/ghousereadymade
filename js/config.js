@@ -24,6 +24,18 @@ window.STORE = {
 
   currency: "₹",
 
+  // OFFER PRICE — while the offer is on, every product (with onOffer: true)
+  // sells at this price and the regular price is shown struck out.
+  //  - active:  true = offer running, false = regular prices everywhere
+  //  - endsOn:  last day of the offer as "YYYY-MM-DD" (e.g. "2026-10-15").
+  //             The offer switches off by itself after this day.
+  //             Leave "" to run until you set active: false.
+  offer: {
+    active: true,
+    price: 100,
+    endsOn: ""
+  },
+
   shipping: {
     fee: 50,                 // flat per order, anywhere in Tamil Nadu
     courier: "ST Courier",
@@ -34,10 +46,11 @@ window.STORE = {
   payments: ["upi", "bank"],
   allowCOD: false,           // set true if you accept cash on delivery
 
-  // YouTube: paste your channel link, and add video IDs to feature them
+  // YouTube: your channel. The site automatically plays your latest uploads.
+  // Optional: add video IDs below to feature specific videos instead.
   // Video ID = the part after "v=" in https://www.youtube.com/watch?v=XXXXXXXXXXX
   youtube: {
-    channelUrl: "https://www.youtube.com/results?search_query=Ghouse+Readymades+Lalpet",
+    channelUrl: "https://www.youtube.com/channel/UCCQc9rO-cJLVHudexjUz8rg",
     videos: [
       // { id: "XXXXXXXXXXX", title: { en: "New jacket collection", ta: "புதிய ஜாக்கெட் கலெக்ஷன்" } },
     ]
@@ -49,6 +62,8 @@ window.STORE = {
     ta: ""
   },
 
-  instagram: "",
-  facebook: ""
+  // Social media (leave "" to hide)
+  instagram: "https://www.instagram.com/gouse_readymades/",
+  facebook: "https://www.facebook.com/share/1DbG8ZxKdr/",
+  whatsappGroup: "https://chat.whatsapp.com/ILBhrlZVVRd8Ge8y3qoh5h"
 };
