@@ -187,9 +187,9 @@ const shopInfo =
 function homeBody() {
   return '<div class="seo-pre">' +
     "<h1>" + esc(S.name.en) + " · " + esc(S.name.ta) + " – Readymade clothing shop in Lalpet</h1>" +
-    "<p>Readymade jackets (blouses), patiala, leggings and palazzo pants, burqa shawls, face veils, hand &amp; leg socks, inskirts, pillow covers and kids wear" +
-    (offerOn() ? " — offer price ₹" + S.offer.price + " on every item" : "") + ". Delivered across Tamil Nadu by ST Courier for ₹" + S.shipping.fee + " per order.</p>" +
-    "<p>லால்பேட்டை கவுஸ் ரெடிமேட்ஸ் — ரெடிமேட் ஜாக்கெட், பட்டியாலா, லெக்கின்ஸ், பிளாஜோ பேன்ட், புர்கா ஷால், குழந்தைகள் உடை மற்றும் பல. தமிழ்நாடு முழுவதும் டெலிவரி.</p>" +
+    "<p>Readymade jackets (blouses), patiala, leggings and palazzo pants, burqa shawls, face veils, hand &amp; leg socks, inskirts, pillow covers, kids wear, cotton nighties, lungis and bedsheets" +
+    (offerOn() ? " — offer price ₹" + S.offer.price + " on readymades" : "") + ". Delivered across Tamil Nadu by ST Courier for ₹" + S.shipping.fee + " per order.</p>" +
+    "<p>லால்பேட்டை கவுஸ் ரெடிமேட்ஸ் — ரெடிமேட் ஜாக்கெட், பட்டியாலா, லெக்கின்ஸ், பிளாஜோ பேன்ட், புர்கா ஷால், குழந்தைகள் உடை, நைட்டி, லுங்கி, பெட்ஷீட் மற்றும் பல. தமிழ்நாடு முழுவதும் டெலிவரி.</p>" +
     "<h2>Categories · வகைகள்</h2><ul>" + CATS.map((c) => '<li><a href="' + categoryPath(c) + '">' + esc(c.en) + " · " + esc(c.ta) + "</a></li>").join("") + "</ul>" +
     "<h2>Products · பொருட்கள்</h2>" + productList(PRODUCTS) + shopInfo + "</div>";
 }
@@ -232,14 +232,15 @@ function page(o) {
 }
 
 const cats = CATS.map((c) => c.en.toLowerCase()).join(", ");
-const offerLine = offerOn() ? "Offer: everything ₹" + S.offer.price + ". " : "";
+const offerLine = offerOn() ? "Offer: readymades ₹" + S.offer.price + ". " : "";
+const catOffer = (list) => offerOn() && list.some((p) => p.onOffer !== false) ? offerLine : "";
 
 // Home
 write("index.html", page({
   url: BASE,
-  title: S.name.en + " Lalpet | Readymade Jackets, Pants, Burqa & Kids Wear | " + S.name.ta,
+  title: S.name.en + " Lalpet | Readymade Jackets, Pants, Burqa, Nighties, Lungis & Bedsheets | " + S.name.ta,
   ogTitle: S.name.en + " · " + S.name.ta + " — Lalpet",
-  description: offerLine + "Readymade jackets, patiala, leggings, palazzo, burqa shawl, niqab & kids wear from Lalpet. ₹" + S.shipping.fee +
+  description: offerLine + "Readymade jackets, patiala, leggings, palazzo, burqa shawl, niqab, kids wear, nighties, lungis & bedsheets from Lalpet. ₹" + S.shipping.fee +
     " shipping per order across Tamil Nadu by ST Courier. Order on WhatsApp. ரெடிமேட் ஜாக்கெட், பேன்ட், புர்கா.",
   image: { url: abs("images/og-image.png"), w: 1200, h: 630 },
   ld: [store, website, {
@@ -256,7 +257,7 @@ CATS.forEach((c) => {
     base: "../../",
     url: abs(categoryPath(c)),
     title: c.en + " (" + c.ta + ") | " + S.name.en + " Lalpet",
-    description: offerLine + list.map((p) => p.en).join(", ") + " at " + S.name.en + ", Lalpet. ₹" + S.shipping.fee + " shipping across Tamil Nadu. Order on WhatsApp.",
+    description: catOffer(list) + list.map((p) => p.en).join(", ") + " at " + S.name.en + ", Lalpet. ₹" + S.shipping.fee + " shipping across Tamil Nadu. Order on WhatsApp.",
     image: ogImage(list.find((p) => p.images && p.images.length) || list[0]),
     ld: [store, breadcrumb([["Home", ""], [c.en, categoryPath(c)]]), {
       "@type": "CollectionPage", name: c.en + " – " + S.name.en, url: abs(categoryPath(c)),

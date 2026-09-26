@@ -21,7 +21,10 @@ window.CATEGORIES = [
   { id: "pants",    en: "Pants",          ta: "பேன்ட்" },
   { id: "burqa",    en: "Burqa Wear",     ta: "புர்கா" },
   { id: "essentials", en: "Essentials",   ta: "அத்தியாவசியம்" },
-  { id: "kids",     en: "Kids",           ta: "குழந்தைகள்" }
+  { id: "kids",     en: "Kids",           ta: "குழந்தைகள்" },
+  { id: "nighties", en: "Nighties",       ta: "நைட்டி" },
+  { id: "lungis",   en: "Lungis",         ta: "லுங்கி" },
+  { id: "bedsheets", en: "Bedsheets",     ta: "பெட்ஷீட்" }
 ];
 
 (function () {
@@ -214,6 +217,71 @@ window.CATEGORIES = [
       regularPrice: null, onOffer: true, inStock: true, colors: true,
       options: [{ key: "gender", values: ["Boy", "Girl", "Any"] }],
       keywords: "kids wear baby dress frock romper"
+    },
+    {
+      id: "cotton-nighty", code: "P16", cat: "nighties", art: "nighty", tint: 175,
+      en: "Cotton Nighty", ta: "காட்டன் நைட்டி",
+      tag: { en: "Soft cotton", ta: "மென்மையான காட்டன்" },
+      desc: {
+        en: "Soft printed cotton nighty for everyday comfort at home — breathable in the Tamil Nadu heat.",
+        ta: "வீட்டில் தினமும் அணிய மென்மையான பிரிண்டட் காட்டன் நைட்டி — வெயிலுக்கும் காற்றோட்டமானது."
+      },
+      images: ["images/products/cotton-nighty-1.jpg"],
+      regularPrice: null, onOffer: false, inStock: true, colors: true,
+      options: [{ key: "size", values: ["L", "XL", "XXL"] }],
+      keywords: "nighty nightie nighties nightdress cotton maxi night gown"
+    },
+    {
+      id: "designer-nighty", code: "P17", cat: "nighties", art: "nighty", tint: 165,
+      en: "Designer Nighty", ta: "டிசைனர் நைட்டி",
+      tag: { en: "New designs", ta: "புதிய டிசைன்" },
+      desc: {
+        en: "Trending nighty designs with printed yoke and neat finish — comfortable enough to wear all day.",
+        ta: "அழகான யோக் டிசைனுடன் டிரெண்டிங் நைட்டி — நாள் முழுதும் வசதியாக அணியலாம்."
+      },
+      images: ["images/products/designer-nighty-1.jpg"],
+      regularPrice: null, onOffer: false, inStock: true, colors: true,
+      options: [{ key: "size", values: ["L", "XL", "XXL"] }],
+      keywords: "nighty nightie designer new trending nightdress"
+    },
+    {
+      id: "nandu-lungi", code: "P18", cat: "lungis", art: "lungi", tint: 230,
+      en: "Nandu (Crab) Brand Cotton Lungi", ta: "நண்டு பிராண்ட் காட்டன் லுங்கி",
+      tag: { en: "100% cotton", ta: "100% காட்டன்" },
+      desc: {
+        en: "Branded Nandu (Crab) lungi in 100% cotton, 2.20 metre size. Strong weave, soft feel and lasting colours.",
+        ta: "100% காட்டன் நண்டு பிராண்ட் லுங்கி, 2.20 மீட்டர் அளவு. உறுதியான நெசவு, மென்மையான உணர்வு."
+      },
+      images: ["images/products/nandu-lungi-1.jpg"],
+      regularPrice: 400, onOffer: false, inStock: true, colors: false,
+      options: [],
+      keywords: "lungi lungis nandu crab brand cotton veshti mens"
+    },
+    {
+      id: "cotton-lungi", code: "P19", cat: "lungis", art: "lungi", tint: 215,
+      en: "Cotton Lungi", ta: "காட்டன் லுங்கி",
+      tag: { en: "Daily wear", ta: "தினசரி" },
+      desc: {
+        en: "Everyday cotton lungi in plain colours and checks — Lalpettai lungis loved for comfort.",
+        ta: "பிளைன் மற்றும் கட்டம் டிசைனில் தினசரி காட்டன் லுங்கி — லால்பேட்டை லுங்கிகள்."
+      },
+      images: ["images/products/cotton-lungi-1.jpg"],
+      regularPrice: 200, onOffer: false, inStock: true, colors: false,
+      options: [{ key: "type", values: ["Plain", "Checks", "Any"] }],
+      keywords: "lungi lungis cotton checks plain lalpettai mens"
+    },
+    {
+      id: "bedsheet", code: "P20", cat: "bedsheets", art: "bedsheet", tint: 330,
+      en: "Bedsheet (Fitted / Flat)", ta: "பெட்ஷீட் (ஃபிட்டட் / சாதாரண)",
+      tag: { en: "All bed sizes", ta: "எல்லா அளவுகளும்" },
+      desc: {
+        en: "Printed bedsheets for every bed — elastic fitted sheets that stay in place, and regular flat sheets. Single, double and king size.",
+        ta: "எல்லா கட்டிலுக்கும் பிரிண்டட் பெட்ஷீட் — நழுவாத எலாஸ்டிக் ஃபிட்டட் ஷீட் மற்றும் சாதாரண ஷீட். சிங்கிள், டபுள், கிங் சைஸ்."
+      },
+      images: ["images/products/bedsheet-1.jpg", "images/products/bedsheet-2.jpg"],
+      regularPrice: null, onOffer: false, inStock: true, colors: true,
+      options: [{ key: "type", values: ["Elastic Fitted", "Flat"] }, { key: "size", values: ["Single", "Double", "King"] }],
+      keywords: "bedsheet bed sheet fitted elastic king double single cover"
     }
   ];
 
@@ -242,6 +310,9 @@ window.CATEGORIES = [
     color:  { en: "Colour", ta: "நிறம்" }
   };
   window.OPTION_VALUES_TA = {
+    "Single": "சிங்கிள்", "Double": "டபுள்", "King": "கிங்",
+    "Elastic Fitted": "எலாஸ்டிக் ஃபிட்டட்", "Flat": "சாதாரண (ஃப்ளாட்)",
+    "Plain": "பிளைன்", "Checks": "கட்டம்",
     "Free Size": "ஃப்ரீ சைஸ்",
     "Hand Socks": "கை ஷாக்ஸ்",
     "Leg Socks": "கால் ஷாக்ஸ்",

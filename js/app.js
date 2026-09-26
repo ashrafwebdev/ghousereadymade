@@ -339,13 +339,13 @@
       return '<a class="chip' + (c.id === cat ? " on" : "") + '" href="#/shop?cat=' + c.id + (q ? "&q=" + encodeURIComponent(q) : "") + '" data-nav-soft>' + esc(loc(c)) + '</a>';
     }).join("");
     return '<section class="section">' +
-      '<div class="sec-head"><h1>' + (q ? esc(t("shop.searchFor", { q: q })) : t("shop.title")) + '</h1>' +
+      '<div class="sec-head"><h1>' + (q ? esc(t("shop.searchFor", { q: q })) : cat !== "all" ? esc(loc(CATS.filter(function (c) { return c.id === cat; })[0] || CATS[0])) : t("shop.title")) + '</h1>' +
         (q ? '<a class="link" href="#/shop">' + t("shop.clear") + ' ×</a>' : "") + '</div>' +
       '<div class="toolbar"><div class="chips chips--scroll">' + chips + '</div>' +
         '<label class="sort">' + t("shop.sort") + ' <select id="sortSel">' +
         ["featured", "az", "za"].map(function (s) { return '<option value="' + s + '"' + (state.sort === s ? " selected" : "") + '>' + t("sort." + s) + '</option>'; }).join("") +
         '</select></label></div>' +
-      '<p class="muted">' + t("shop.results", { n: list.length }) + (offerOn() ? ' · ⏳ ' + t("stock.note") : "") + '</p>' +
+      '<p class="muted">' + t("shop.results", { n: list.length }) + (offerOn() && list.some(function (p) { return p.onOffer !== false; }) ? ' · ⏳ ' + t("stock.note") : "") + '</p>' +
       (list.length ? grid(list) : '<div class="empty"><p>' + t("shop.empty") + '</p><a class="btn btn--primary" href="#/shop">' + t("shop.clear") + '</a></div>') +
       '</section>';
   };
