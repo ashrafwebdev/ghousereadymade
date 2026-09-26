@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://ghousereadymades.github.io/sitemap.xml
