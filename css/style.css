@@ -504,6 +504,9 @@ legend + * { clear: both; }
 .socials .wa-i, .foot-wa .wa-i { width: 18px; height: 18px; }
 .foot-wa a { display: inline-flex; align-items: center; gap: 6px; }
 .foot-wa:empty { display: none; }
+.credit { margin: 6px 0 0; font-size: .8rem; opacity: .9; }
+.credit a { color: var(--gold-2); font-weight: 700; text-decoration: none; }
+.credit a:hover { text-decoration: underline; }
 .footer__bottom { text-align: center; padding: 14px 16px calc(14px + var(--bnav-space, 0px)); border-top: 1px solid rgba(255, 255, 255, .12); font-size: .82rem; opacity: .8; }
 
 /* ---------- bottom nav (mobile) ---------- */
