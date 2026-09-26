@@ -172,7 +172,7 @@ main { max-width: var(--wrap); margin: 0 auto; padding: 0 16px 40px; min-height:
 @keyframes float { 50% { translate: 0 -10px; } }
 
 /* ---------- categories ---------- */
-.cats { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; }
+.cats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
 .cat { background: #fff; border-radius: var(--r); padding: 10px 10px 14px; text-decoration: none; text-align: center; box-shadow: var(--shadow); transition: transform .2s, box-shadow .2s; border: 1.5px solid transparent; }
 .cat:hover { transform: translateY(-3px); border-color: hsl(var(--h), 60%, 70%); }
 .cat__art { display: block; border-radius: 14px; overflow: hidden; aspect-ratio: 1; margin-bottom: 8px; }
@@ -515,7 +515,7 @@ legend + * { clear: both; }
 /* ---------- responsive ---------- */
 @media (max-width: 1024px) {
   .grid { grid-template-columns: repeat(3, 1fr); }
-  .cats { grid-template-columns: repeat(5, 1fr); gap: 8px; }
+  .cats { grid-template-columns: repeat(4, 1fr); gap: 8px; }
   .hnav { display: none; }
   .cartpage__grid, .checkout__grid { grid-template-columns: 1fr 340px; }
 }
@@ -541,7 +541,7 @@ legend + * { clear: both; }
   .hero__art { max-width: 300px; margin-top: 8px; }
   .hero h1 { margin-top: 10px; }
   .hero__cta .btn { flex: 1 1 100%; }
-  .cats { grid-template-columns: repeat(5, 150px); overflow-x: auto; padding-bottom: 8px; scroll-snap-type: x mandatory; margin-right: -16px; padding-right: 16px; }
+  .cats { grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: 150px; overflow-x: auto; padding-bottom: 8px; scroll-snap-type: x mandatory; margin-right: -16px; padding-right: 16px; }
   .cat { scroll-snap-align: start; }
   .grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
   .card__body { padding: 10px 10px 12px; }

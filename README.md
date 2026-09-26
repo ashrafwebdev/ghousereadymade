@@ -1,7 +1,7 @@
 # Ghouse Readymades · கவுஸ் ரெடிமேட்ஸ்
 
 The online shop for **Ghouse Readymades**, Chidambaram Main Road, Lalpet – 608 303.
-Each product has a regular price, and during an offer period every product sells at the offer price (₹100). Shipping is a flat ₹50 per order anywhere in Tamil Nadu, by ST Courier.
+Each product has a regular price, and during an offer period the readymades on the price list sell at the offer price (₹100). Nighties, lungis and bedsheets always sell at their own prices (`onOffer: false`). Shipping is a flat ₹50 per order anywhere in Tamil Nadu, by ST Courier.
 Customers order on WhatsApp.
 
 The site is plain HTML, CSS and JavaScript. It has no server and no build step, so it runs directly on **GitHub Pages**.
@@ -9,7 +9,7 @@ The site is plain HTML, CSS and JavaScript. It has no server and no build step, 
 ## Features
 
 - **English + Tamil.** One tap switches the language, and the choice is remembered. Tamil is the default.
-- **Catalogue of all 15 products from the shop price list.** Customers can search in English or Tamil, filter by category and sort.
+- **Catalogue of 20 products.** It has the 15 items from the shop price list, plus nighties, lungis and bedsheets. Customers can search in English or Tamil, filter by category and sort.
 - **Product pages.** Customers pick size, age or type and a colour, and set the quantity. Each page has Buy now, Ask on WhatsApp, Share and Wishlist buttons, plus related and recently viewed products.
 - **Quick-add popup.** Customers can add a product straight from the product grid.
 - **Cart.** It shows the ₹50 flat shipping and how much each item costs once shipping is included (for example, 5 items work out to ₹110 each). It also suggests other products, which leaves the shipping fee unchanged.
@@ -43,7 +43,7 @@ images: ["images/products/readymade-jacket-1.jpg", "images/products/readymade-ja
 
 Until you add a photo, the site shows a drawn picture of the product.
 
-The current photos of the readymade jacket, patiala, leggings, palazzo, burqa shawl and kids wear are cropped from frames of the shop's own YouTube Shorts. Clear photos taken on a plain background will look even better. Replace them any time.
+The current photos of the readymade jacket, patiala, leggings, palazzo, burqa shawl, kids wear, nighties, lungis and bedsheets are cropped from frames of the shop's own YouTube Shorts. Clear photos taken on a plain background will look even better. Replace them any time.
 
 **YouTube.** The site is linked to your channel (`channelUrl` in `js/config.js`) and has a Subscribe button. The video box plays your channel's latest uploads automatically, so new videos appear on the site without any change. To feature specific videos instead, add their IDs to `videos` in `js/config.js`. The ID is the part after `v=` in the video link.
 

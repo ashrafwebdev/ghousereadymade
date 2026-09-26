@@ -117,6 +117,27 @@
         '<circle cx="84" cy="102" r="4" fill="#f4a3a3" opacity=".7"/><circle cx="116" cy="102" r="4" fill="#f4a3a3" opacity=".7"/>' +
         '<g fill="' + p.g + '"><circle cx="72" cy="150" r="4"/><circle cx="100" cy="156" r="4"/><circle cx="128" cy="150" r="4"/></g>';
     },
+    nighty: function (p) {
+      return '<path d="M76 30 Q100 44 124 30 L150 50 L140 72 L130 66 L150 172 Q100 182 50 172 L70 66 L60 72 L50 50 Z" fill="' + p.m + '"/>' +
+        '<path d="M84 34 Q100 52 116 34 L114 70 Q100 76 86 70 Z" fill="' + p.d + '"/>' +
+        '<g fill="' + p.l + '"><circle cx="80" cy="100" r="6"/><circle cx="118" cy="112" r="6"/><circle cx="92" cy="140" r="6"/><circle cx="126" cy="150" r="5"/><circle cx="70" cy="160" r="5"/></g>' +
+        '<path d="M50 172 Q100 182 150 172" stroke="' + p.g + '" stroke-width="4" fill="none"/>';
+    },
+    lungi: function (p) {
+      var st = "";
+      for (var x = 48; x < 156; x += 18) st += '<rect x="' + x + '" y="40" width="7" height="130" fill="' + p.d + '" opacity=".75"/>';
+      return '<rect x="40" y="40" width="120" height="130" rx="4" fill="' + p.l + '"/>' + st +
+        '<rect x="40" y="96" width="120" height="8" fill="' + p.d + '" opacity=".5"/><rect x="40" y="120" width="120" height="8" fill="' + p.d + '" opacity=".5"/>' +
+        '<rect x="40" y="40" width="120" height="10" fill="' + p.m + '"/><rect x="40" y="160" width="120" height="10" fill="' + p.m + '"/>' +
+        '<rect x="118" y="140" width="30" height="18" rx="2" fill="#fff"/><rect x="122" y="144" width="22" height="10" fill="' + p.g + '"/>';
+    },
+    bedsheet: function (p) {
+      return '<path d="M30 92 L100 60 L170 92 L100 124 Z" fill="' + p.l + '"/>' +
+        '<path d="M30 92 L100 124 L100 160 L30 128 Z" fill="' + p.m + '"/><path d="M170 92 L100 124 L100 160 L170 128 Z" fill="' + p.d + '"/>' +
+        '<g fill="' + p.m + '"><circle cx="80" cy="84" r="8"/><circle cx="118" cy="96" r="8"/><circle cx="100" cy="74" r="5"/><circle cx="136" cy="86" r="5"/></g>' +
+        '<g fill="' + p.g + '"><circle cx="80" cy="84" r="3"/><circle cx="118" cy="96" r="3"/></g>' +
+        '<ellipse cx="72" cy="80" rx="18" ry="8" fill="#fff" opacity=".85"/>';
+    },
     kids: function (p) {
       return '<path d="M72 40 Q100 56 128 40 L156 64 L142 84 L132 76 L150 164 Q100 176 50 164 L68 76 L58 84 L44 64 Z" fill="' + p.m + '"/>' +
         '<path d="M86 46 Q100 60 114 46" fill="none" stroke="#fff" stroke-width="4"/>' +
