@@ -221,14 +221,14 @@ window.CATEGORIES = [
     {
       id: "cotton-nighty", code: "P16", cat: "nighties", art: "nighty", tint: 175,
       en: "Cotton Nighty", ta: "காட்டன் நைட்டி",
-      tag: { en: "Soft cotton", ta: "மென்மையான காட்டன்" },
+      tag: { en: "Free size", ta: "ஃப்ரீ சைஸ்" },
       desc: {
-        en: "Soft printed cotton nighty for everyday comfort at home — breathable in the Tamil Nadu heat.",
-        ta: "வீட்டில் தினமும் அணிய மென்மையான பிரிண்டட் காட்டன் நைட்டி — வெயிலுக்கும் காற்றோட்டமானது."
+        en: "Soft printed cotton nighty for everyday comfort at home — breathable in the Tamil Nadu heat. Free size.",
+        ta: "வீட்டில் தினமும் அணிய மென்மையான பிரிண்டட் காட்டன் நைட்டி — வெயிலுக்கும் காற்றோட்டமானது. ஃப்ரீ சைஸ்."
       },
       images: ["images/products/cotton-nighty-1.jpg"],
       regularPrice: null, onOffer: false, inStock: true, colors: true,
-      options: [{ key: "size", values: ["L", "XL", "XXL"] }],
+      options: [{ key: "size", values: ["Free Size"] }],
       keywords: "nighty nightie nighties nightdress cotton maxi night gown"
     },
     {
@@ -236,12 +236,12 @@ window.CATEGORIES = [
       en: "Designer Nighty", ta: "டிசைனர் நைட்டி",
       tag: { en: "New designs", ta: "புதிய டிசைன்" },
       desc: {
-        en: "Trending nighty designs with printed yoke and neat finish — comfortable enough to wear all day.",
-        ta: "அழகான யோக் டிசைனுடன் டிரெண்டிங் நைட்டி — நாள் முழுதும் வசதியாக அணியலாம்."
+        en: "Trending nighty designs with printed yoke and neat finish — comfortable enough to wear all day. Free size.",
+        ta: "அழகான யோக் டிசைனுடன் டிரெண்டிங் நைட்டி — நாள் முழுதும் வசதியாக அணியலாம். ஃப்ரீ சைஸ்."
       },
       images: ["images/products/designer-nighty-1.jpg"],
       regularPrice: null, onOffer: false, inStock: true, colors: true,
-      options: [{ key: "size", values: ["L", "XL", "XXL"] }],
+      options: [{ key: "size", values: ["Free Size"] }],
       keywords: "nighty nightie designer new trending nightdress"
     },
     {
