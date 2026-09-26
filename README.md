@@ -14,7 +14,7 @@ The site is plain HTML, CSS and JavaScript. It has no server and no build step, 
 - **Quick-add popup.** Customers can add a product straight from the product grid.
 - **Cart.** It shows the ₹50 flat shipping and how much each item costs once shipping is included (for example, 5 items work out to ₹110 each). It also suggests other products, which leaves the shipping fee unchanged.
 - **Order page with a WhatsApp preview.** It shows the shop's profile in WhatsApp style and a live preview of the message. The customer taps once to send the full order to 82204 61646. Every message ends with:
-  > 🌐 This order is placed through **ghousereadymades.github.io**
+  > 🌐 This order is placed through **ashrafwebdev.github.io/ghousereadymade**
 - **Checkout form.** The phone number and Tamil Nadu pincode are checked, all 38 districts plus Puducherry are listed, and customers can choose ST Courier or collect from the shop. The form can remember the customer's details.
 - **Order IDs and order history.** Each order gets an ID (for example `GR260926-4821`). The *My Orders* page lets a customer resend an order on WhatsApp or order the same items again.
 - **Other sections:**
@@ -51,13 +51,18 @@ Until you add a photo, the site shows a drawn picture of the product.
 
 ## Publishing on GitHub Pages
 
-To use the address **ghousereadymades.github.io**, the GitHub account (or organisation) must be named `ghousereadymades`, and the repository must be named `ghousereadymades.github.io`:
+The site is live at **https://ashrafwebdev.github.io/ghousereadymade/** (Settings → Pages → `main`, `/ (root)`).
+Any change merged into `main` goes live within a minute or two.
+
+To move to the shorter address **ghousereadymades.github.io** later:
+
+The GitHub account (or organisation) must be named `ghousereadymades`, and the repository must be named `ghousereadymades.github.io`:
 
 1. Push these files to the `main` branch of that repository.
 2. Go to **Settings → Pages → Build and deployment**, and choose *Deploy from a branch*, with `main` and `/ (root)`.
 3. After about a minute, the site is live at `https://ghousereadymades.github.io/`.
 
-If you publish from a different repository, change `siteUrl` in `js/config.js`. That keeps the note in WhatsApp orders correct.
+Then change `siteUrl` in `js/config.js` (this keeps the note in WhatsApp orders correct), and the site address in `index.html`, `sitemap.xml`, `robots.txt` and `404.html`.
 
 ## Testing on your computer
 

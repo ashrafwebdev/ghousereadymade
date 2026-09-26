@@ -14,7 +14,7 @@ window.STORE = {
   phoneDisplay: "82204 61646",
 
   // Shown in every WhatsApp order so you know it came from the website
-  siteUrl: "ghousereadymades.github.io",
+  siteUrl: "ashrafwebdev.github.io/ghousereadymade",
 
   address: {
     en: "Chidambaram Main Road, Lalpet – 608 303 (Near Govt. Higher Secondary School)",
