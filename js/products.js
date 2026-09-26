@@ -8,8 +8,8 @@
  *  - onOffer:   true = sells at the offer price (js/config.js) while the
  *               offer is on; false = always sells at regularPrice
  *  - inStock:   false shows "Sold out" and disables ordering
- *  - images:    add your photos to /images and list them, e.g.
- *               images: ["images/readymade-jacket-1.jpg"]
+ *  - images:    add your photos to /images/products and list them, e.g.
+ *               images: ["images/products/readymade-jacket-1.jpg"]
  *               (until then a drawn illustration is shown)
  *  - options:   size / type choices the customer must pick
  *  - colors:    true shows the colour picker
@@ -37,6 +37,7 @@ window.CATEGORIES = [
         en: "Stitched readymade jacket (blouse) — no tailor waiting. Comfortable daily-wear fit that goes with any saree.",
         ta: "தைத்து தயாரான ரெடிமேட் ஜாக்கெட் — டெய்லருக்கு காத்திருக்க வேண்டாம். எந்த சேலைக்கும் பொருந்தும் தினசரி அணியும் ஃபிட்."
       },
+      images: ["images/products/readymade-jacket-1.jpg", "images/products/readymade-jacket-2.jpg"],
       regularPrice: null, onOffer: true, inStock: true, colors: true,
       options: [{ key: "size", values: blouseSizes }],
       keywords: "blouse readymade jacket saree"
@@ -73,6 +74,7 @@ window.CATEGORIES = [
         en: "Loose, pleated patiala pant with gathered ankles. Pairs with kurtis and tops for all-day comfort.",
         ta: "மடிப்புகளுடன் தளர்வான பட்டியாலா பேன்ட். குர்தி, டாப்ஸுடன் நாள் முழுதும் வசதியாக அணியலாம்."
       },
+      images: ["images/products/patiala-pant-1.jpg"],
       regularPrice: null, onOffer: true, inStock: true, colors: true,
       options: [{ key: "size", values: pantSizes }],
       keywords: "patiala pant salwar bottom"
@@ -85,6 +87,7 @@ window.CATEGORIES = [
         en: "Soft, stretchable leggings for daily wear, college and work. Snug fit that moves with you.",
         ta: "தினசரி, காலேஜ், வேலைக்கு ஏற்ற மென்மையான ஸ்ட்ரெச் லெக்கின்ஸ். உடலோடு ஒட்டிய வசதியான ஃபிட்."
       },
+      images: ["images/products/leggings-pant-1.jpg"],
       regularPrice: null, onOffer: true, inStock: true, colors: true,
       options: [{ key: "size", values: pantSizes }],
       keywords: "leggings legging pant stretch"
@@ -97,6 +100,7 @@ window.CATEGORIES = [
         en: "Flowy wide-leg palazzo — airy and elegant for hot Tamil Nadu days.",
         ta: "காற்றோட்டமான அகல கால் பிளாஜோ — தமிழ்நாட்டு வெயிலுக்கு ஏற்ற ஸ்டைல்."
       },
+      images: ["images/products/palazzo-pant-1.jpg"],
       regularPrice: null, onOffer: true, inStock: true, colors: true,
       options: [{ key: "size", values: pantSizes }],
       keywords: "palazzo plazo pant wide"
@@ -109,6 +113,7 @@ window.CATEGORIES = [
         en: "Lightweight burqa shawl / hijab that drapes neatly and stays comfortable all day.",
         ta: "எடை குறைந்த புர்கா ஷால் / ஹிஜாப் — அழகாக அமரும், நாள் முழுதும் வசதி."
       },
+      images: ["images/products/burqa-shawl-1.jpg"],
       regularPrice: null, onOffer: true, inStock: true, colors: true,
       options: [],
       keywords: "burqa burka shawl hijab scarf dupatta"
@@ -205,6 +210,7 @@ window.CATEGORIES = [
         en: "Soft and colourful outfit for babies aged 1 to 2 — comfy for play and sleep.",
         ta: "1–2 வயது குழந்தைகளுக்கான மென்மையான, வண்ணமயமான உடை — விளையாட, தூங்க வசதி."
       },
+      images: ["images/products/kids-wear-1.jpg"],
       regularPrice: null, onOffer: true, inStock: true, colors: true,
       options: [{ key: "gender", values: ["Boy", "Girl", "Any"] }],
       keywords: "kids wear baby dress frock romper"

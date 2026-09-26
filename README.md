@@ -13,7 +13,7 @@ The site is plain HTML, CSS and JavaScript. It has no server and no build step, 
 - **Product pages.** Customers pick size, age or type and a colour, and set the quantity. Each page has Buy now, Ask on WhatsApp, Share and Wishlist buttons, plus related and recently viewed products.
 - **Quick-add popup.** Customers can add a product straight from the product grid.
 - **Cart.** It shows the ₹50 flat shipping and how much each item costs once shipping is included (for example, 5 items work out to ₹110 each). It also suggests other products, which leaves the shipping fee unchanged.
-- **Order page with a WhatsApp preview.** It shows the shop's profile in WhatsApp style and a live preview of the message. The customer taps once to send the full order to 82204 61646. Every message ends with:
+- **Order page with a WhatsApp preview.** It shows the shop's profile in WhatsApp style and a live preview of the message. The customer taps once to send the full order to WhatsApp 80728 77443. Every message ends with:
   > 🌐 This order is placed through **ashrafwebdev.github.io/ghousereadymade**
 - **Checkout form.** The phone number and Tamil Nadu pincode are checked, all 38 districts plus Puducherry are listed, and customers can choose ST Courier or collect from the shop. The form can remember the customer's details.
 - **Order IDs and order history.** Each order gets an ID (for example `GR260926-4821`). The *My Orders* page lets a customer resend an order on WhatsApp or order the same items again.
@@ -31,17 +31,19 @@ The site is plain HTML, CSS and JavaScript. It has no server and no build step, 
 
 | What to change | File |
 |---|---|
-| Phone / WhatsApp number, shipping fee, YouTube link, offer banner, cash on delivery | `js/config.js` |
+| WhatsApp order number (`whatsapp`), call number (`phone`), shipping fee, YouTube link, offer banner, cash on delivery | `js/config.js` |
 | Products, prices, sizes, sold out, photos | `js/products.js` |
 | Any website text (English / Tamil) | `js/i18n.js` |
 
-**Adding real product photos.** Upload your photos to the `images/` folder. Then add them to the product in `js/products.js`:
+**Adding real product photos.** Upload your photos to the `images/products/` folder. Then add them to the product in `js/products.js`:
 
 ```js
-images: ["images/readymade-jacket-1.jpg", "images/readymade-jacket-2.jpg"],
+images: ["images/products/readymade-jacket-1.jpg", "images/products/readymade-jacket-2.jpg"],
 ```
 
 Until you add a photo, the site shows a drawn picture of the product.
+
+The current photos of the readymade jacket, patiala, leggings, palazzo, burqa shawl and kids wear are cropped from frames of the shop's own YouTube Shorts. Clear photos taken on a plain background will look even better. Replace them any time.
 
 **YouTube.** The site is linked to your channel (`channelUrl` in `js/config.js`) and has a Subscribe button. The video box plays your channel's latest uploads automatically, so new videos appear on the site without any change. To feature specific videos instead, add their IDs to `videos` in `js/config.js`. The ID is the part after `v=` in the video link.
 
@@ -60,6 +62,15 @@ Until you add a photo, the site shows a drawn picture of the product.
 **Showing a custom message at the top of the site.** In `js/config.js`, fill in the `offerBanner` text in English and Tamil. Leave it empty to show the automatic offer message (or nothing when no offer is running).
 
 **Marking a product as sold out.** Set `inStock: false` for that product in `js/products.js`.
+
+## SEO (Google search and link previews)
+
+- **A real page for every product and category.** For example, `product/readymade-jacket/` and `category/pants/`. Each page has its own title and description, bilingual content, a share image and structured data (Product, Offer with price and shipping, BreadcrumbList, ClothingStore, WebSite). Google can index each product separately, and a product link shared on WhatsApp or Facebook shows the product picture and name.
+- **The site uses these links.** The Share button and "Ask on WhatsApp" send the product page link.
+- **`sitemap.xml`** lists every page, with product photos.
+- **Rebuilding the pages.** The generated pages come from `js/config.js` and `js/products.js`. A GitHub Action (`.github/workflows/build-seo.yml`) rebuilds them automatically when those files change on `main`. To rebuild by hand, run `node tools/build-seo.js`. To remake the share images (this needs Playwright), run `node tools/build-og.js`.
+- **Google Search Console.** Add the site at https://search.google.com/search-console as a *URL prefix* property: `https://ashrafwebdev.github.io/ghousereadymade/`. Verify it with the HTML-tag method by pasting the tag into `index.html`, then submit `sitemap.xml`.
+- **Google Business Profile.** Setting up a free profile for the Lalpet shop (https://business.google.com) that links to this website helps the most for "readymade shop near me" searches.
 
 ## Publishing on GitHub Pages
 
