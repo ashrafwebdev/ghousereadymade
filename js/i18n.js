@@ -37,7 +37,7 @@ window.I18N = {
     "yt.title": "Watch our latest collections",
     "yt.sub": "We post new arrivals and special offer prices on YouTube regularly. Subscribe so you never miss an offer!",
     "yt.btn": "Visit YouTube channel",
-    "yt.sub_btn": "Subscribe",
+    "yt.sub_btn": "Subscribe", "yt.latest": "Watch our latest videos",
     "yt.p1": "New arrivals every week", "yt.p2": "Special offer prices first", "yt.p3": "See colours & fabric live",
 
     "poster.title": "Our offer price list",
@@ -242,7 +242,7 @@ window.I18N = {
     "yt.title": "எங்கள் புதிய கலெக்ஷன்களைப் பாருங்கள்",
     "yt.sub": "புதிய வரவுகள், சிறப்பு ஆஃபர் விலைகளை YouTube-ல் தொடர்ந்து பதிவிடுகிறோம். ஒரு ஆஃபரையும் தவறவிடாமல் இருக்க Subscribe செய்யுங்கள்!",
     "yt.btn": "YouTube சேனலுக்குச் செல்ல",
-    "yt.sub_btn": "Subscribe",
+    "yt.sub_btn": "Subscribe செய்யுங்கள்", "yt.latest": "எங்கள் புதிய வீடியோக்களைப் பாருங்கள்",
     "yt.p1": "ஒவ்வொரு வாரமும் புதிய வரவுகள்", "yt.p2": "சிறப்பு ஆஃபர் விலைகள் முதலில்", "yt.p3": "நிறம், துணியை நேரடியாகப் பாருங்கள்",
 
     "poster.title": "எங்கள் ஆஃபர் விலைப்பட்டியல்",

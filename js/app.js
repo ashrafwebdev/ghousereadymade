@@ -288,11 +288,16 @@
         return '<button type="button" class="yt-lite" data-yt="' + esc(v.id) + '" style="background-image:url(https://i.ytimg.com/vi/' + esc(v.id) + '/hqdefault.jpg)"><span class="yt-play"></span><span class="yt-title">' + esc(loc(v.title)) + '</span></button>';
       }).join("") + '</div>';
     } else {
-      body = '<div class="yt-mock" aria-hidden="true"><div class="yt-screen">' + media(byId["fancy-jacket"]) + '<span class="yt-play"></span>' + (offerOn() ? '<span class="yt-price">' + money(S.offer.price) + '</span>' : "") + '</div></div>';
+      var ch = /\/channel\/UC([\w-]+)/.exec(S.youtube.channelUrl || "");
+      var screen = '<div class="yt-screen">' + media(byId["fancy-jacket"]) + '<span class="yt-play"></span>' + (offerOn() ? '<span class="yt-price">' + money(S.offer.price) + '</span>' : "") +
+        (ch ? '<span class="yt-latest">▶ ' + t("yt.latest") + '</span>' : "") + '</div>';
+      body = ch ? '<button type="button" class="yt-mock yt-mock--btn" data-ytlist="UU' + esc(ch[1]) + '" aria-label="' + esc(t("yt.latest")) + '">' + screen + '</button>'
+                : '<div class="yt-mock" aria-hidden="true">' + screen + '</div>';
     }
     return '<section class="section yt"><div class="yt__text"><span class="yt__logo">▶ YouTube</span><h2>' + t("yt.title") + '</h2><p>' + t("yt.sub") + '</p>' +
       '<ul class="ticks"><li>' + t("yt.p1") + '</li><li>' + t("yt.p2") + '</li><li>' + t("yt.p3") + '</li></ul>' +
-      '<a class="btn btn--yt" href="' + esc(S.youtube.channelUrl) + '" target="_blank" rel="noopener">▶ ' + t("yt.btn") + '</a></div>' + body + '</section>';
+      '<div class="yt__btns"><a class="btn btn--yt" href="' + esc(S.youtube.channelUrl) + '?sub_confirmation=1" target="_blank" rel="noopener">🔔 ' + t("yt.sub_btn") + '</a>' +
+      '<a class="btn btn--ghost" href="' + esc(S.youtube.channelUrl) + '" target="_blank" rel="noopener">▶ ' + t("yt.btn") + '</a></div></div>' + body + '</section>';
   }
 
   function faqSection(withContact) {
@@ -855,6 +860,10 @@
     }
     if ((el = e.target.closest("[data-yt]"))) {
       el.outerHTML = '<div class="yt-frame"><iframe src="https://www.youtube-nocookie.com/embed/' + encodeURIComponent(el.dataset.yt) + '?autoplay=1&rel=0" title="YouTube" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe></div>';
+      return;
+    }
+    if ((el = e.target.closest("[data-ytlist]"))) {
+      el.outerHTML = '<div class="yt-frame yt-frame--main"><iframe src="https://www.youtube-nocookie.com/embed/videoseries?list=' + encodeURIComponent(el.dataset.ytlist) + '&autoplay=1&rel=0" title="YouTube" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe></div>';
       return;
     }
     if ((el = e.target.closest("[data-reorder]"))) {

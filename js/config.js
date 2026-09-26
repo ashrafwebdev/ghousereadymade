@@ -46,10 +46,11 @@ window.STORE = {
   payments: ["upi", "bank"],
   allowCOD: false,           // set true if you accept cash on delivery
 
-  // YouTube: paste your channel link, and add video IDs to feature them
+  // YouTube: your channel. The site automatically plays your latest uploads.
+  // Optional: add video IDs below to feature specific videos instead.
   // Video ID = the part after "v=" in https://www.youtube.com/watch?v=XXXXXXXXXXX
   youtube: {
-    channelUrl: "https://www.youtube.com/results?search_query=Ghouse+Readymades+Lalpet",
+    channelUrl: "https://www.youtube.com/channel/UCCQc9rO-cJLVHudexjUz8rg",
     videos: [
       // { id: "XXXXXXXXXXX", title: { en: "New jacket collection", ta: "புதிய ஜாக்கெட் கலெக்ஷன்" } },
     ]

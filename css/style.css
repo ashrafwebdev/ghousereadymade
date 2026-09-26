@@ -245,6 +245,12 @@ main { max-width: var(--wrap); margin: 0 auto; padding: 0 16px 40px; min-height:
 .yt-play { position: absolute; left: 50%; top: 50%; width: 68px; height: 48px; transform: translate(-50%, -50%); background: var(--yt); border-radius: 14px; box-shadow: 0 8px 20px rgba(0, 0, 0, .3); }
 .yt-play::after { content: ""; position: absolute; left: 27px; top: 14px; border-left: 18px solid #fff; border-top: 10px solid transparent; border-bottom: 10px solid transparent; }
 .yt-price { position: absolute; right: 12px; bottom: 12px; background: var(--gold); font-family: var(--head); font-weight: 800; padding: 2px 12px; border-radius: 8px; font-size: 1.3rem; }
+.yt__btns { display: flex; gap: 10px; flex-wrap: wrap; }
+.yt-mock--btn { display: block; width: 100%; border: 0; cursor: pointer; text-align: left; }
+.yt-mock--btn:hover .yt-play { transform: translate(-50%, -50%) scale(1.1); }
+.yt-play { transition: transform .2s; }
+.yt-latest { position: absolute; left: 12px; top: 12px; background: rgba(0, 0, 0, .75); color: #fff; font-weight: 700; font-size: .85rem; padding: 4px 12px; border-radius: 8px; }
+.yt-frame--main { box-shadow: var(--shadow-lg); border-radius: 20px; }
 .yt-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 .yt-lite { position: relative; aspect-ratio: 16 / 9; border: 0; border-radius: 14px; background-size: cover; background-position: center; overflow: hidden; padding: 0; }
 .yt-lite:first-child:nth-last-child(odd) { grid-column: 1 / -1; }

@@ -43,7 +43,7 @@ images: ["images/readymade-jacket-1.jpg", "images/readymade-jacket-2.jpg"],
 
 Until you add a photo, the site shows a drawn picture of the product.
 
-**Featuring YouTube videos.** In `js/config.js`, set `channelUrl` to your channel link. Then add each video's ID to `videos`. The ID is the part after `v=` in the video link.
+**YouTube.** The site is linked to your channel (`channelUrl` in `js/config.js`) and has a Subscribe button. The video box plays your channel's latest uploads automatically, so new videos appear on the site without any change. To feature specific videos instead, add their IDs to `videos` in `js/config.js`. The ID is the part after `v=` in the video link.
 
 **Regular prices and the ₹100 offer.**
 - In `js/products.js`, set each product's `regularPrice` (for example `regularPrice: 250`). During the offer, the site shows ~~₹250~~ **₹100**, an "OFFER −60%" badge and "You save ₹150".
